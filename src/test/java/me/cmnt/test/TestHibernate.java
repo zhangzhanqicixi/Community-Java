@@ -6,11 +6,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import me.cmnt.model.User;
-import me.cmnt.service.UserServiceI;
 
 public class TestHibernate {
 	
-private UserServiceI userService;
     
 //    /**
 //     * 这个before方法在所有的测试方法之前执行，并且只执行一次

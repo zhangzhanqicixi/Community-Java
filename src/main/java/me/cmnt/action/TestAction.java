@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
-import me.cmnt.service.UserServiceI;
 
 @ParentPackage("basePackage")
 @Action(value = "strust2Test") // 使用convention-plugin插件提供的@Action注解将一个普通java类标注为一个可以处理用户请求的Action，Action的名字为struts2Test
