@@ -2,8 +2,11 @@ package me.cmnt.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import me.cmnt.dao.BaseDaoI;
 
+@Service("webMsgService")
 public class WebMsgServiceImpl extends BaseServiceImpl {
 	
 	private BaseDaoI webMsgDao;

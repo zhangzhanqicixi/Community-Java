@@ -3,9 +3,11 @@ package me.cmnt.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import me.cmnt.dao.BaseDaoI;
 
+@Service("webInfoService")
 public class WebInfoServiceImpl extends BaseServiceImpl {
 	
 	@Autowired
