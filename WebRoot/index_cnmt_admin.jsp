@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>校园活动管理系统（学生端）</title>
+<title>校园社团活动管理系统（社团管理员）</title>
 
 <link href="themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -90,39 +90,31 @@ $(function(){
 
 				<div class="accordion" fillSpace="sidebar">
 					<div class="accordionHeader">
-						<h2><span>Folder</span>基本信息</h2>
+						<h2><span>Folder</span>社团信息</h2>
 					</div>
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
-							<li><a href="queryStu_Stu.action" target="navTab" rel="information_list" title="查看信息">查看信息</a></li>
-							<li><a href="updateStu_Stu.action" target="navTab" rel="information_update" title="修改信息">修改信息</a></li>
+							<li><a href="queryStu_Stu.action" target="navTab" rel="information_list" title="简介编辑">简介编辑</a></li>
 						</ul>
 					</div>
 					
 					<div class="accordionHeader">
-						<h2><span>Folder</span>活动管理</h2>
+						<h2><span>Folder</span>社团活动</h2>
 					</div>	
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
-							<li><a href="queryCheckedActivity_Activity.action" rel="application_activity" target="navTab"  title="活动报名">活动报名</a></li>
-							<li><a href="http://www.baidu.com" target="navTab"  title="活动组队">活动组队（暂无实现）</a></li>
+							<li><a href="queryCheckedActivity_Activity.action" rel="application_activity" target="navTab"  title="查看活动">查看活动</a></li>
 						</ul>
 					</div>	
 					<div class="accordionHeader">
-						<h2><span>Folder</span>进度查询</h2>
+						<h2><span>Folder</span>成员管理</h2>
 					</div>	
 					<div class="accordionContent">
 						<ul class="tree treeFolder">		
-							<li><a href="queryMyApplication_Activity.action" target="navTab" title="进度查询">进度查询</a></li>
+							<li><a href="queryMyApplication_Activity.action" target="navTab" title="进度查询">成员查询</a></li>
+							<li><a href="queryMyApplication_Activity.action" target="navTab" title="成员申请">成员申请</a></li>
 						</ul>
-					</div>
-					<div class="accordionHeader">
-						<h2><span>Folder</span>活动评分</h2>
-					</div>	
-					<div class="accordionContent">
-						<ul class="tree treeFolder">		
-							<li><a href="queryAllEndActivityByUser_Activity.action" rel="grade_activity" target="navTab" title="活动评分">活动评分</a></li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -148,12 +140,12 @@ $(function(){
 					<div class="page unitBox">
 						<div class="accountInfo">
 							<div class="alertInfo">
-								<p><a href="https://code.csdn.net/dwzteam/dwz_jui/tree/master/doc" target="_blank" style="line-height:19px"><span>欢迎进入校园活动管理系统</span></a></p>
+								<p><a href="https://code.csdn.net/dwzteam/dwz_jui/tree/master/doc" target="_blank" style="line-height:19px"><span>欢迎进入社团管理系统</span></a></p>
 							</div>
 							<div class="right">
 								<p style="color:red">联系电话 ：0571-xxxxxxxx</a></p>
 							</div>
-							<p><span>欢迎进入校园活动管理系统（学生）</span></p>
+							<p><span>欢迎进入社团管理系统（社团管理员）</span></p>
 							<p>个人信息：</p>
 						</div>
 						<div class="pageFormContent" layoutH="80" style="margin-right:230px">
