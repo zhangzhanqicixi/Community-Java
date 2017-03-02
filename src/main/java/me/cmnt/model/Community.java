@@ -14,6 +14,8 @@ public class Community {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private int id;
+	@Column(name = "community_name")
+	private String community_name;
 	@Column(name = "community_introduction")
 	private String community_introduction;
 	@Column(name = "community_img_path")
@@ -35,6 +37,19 @@ public class Community {
 	}
 	public void setCommunity_img_path(String community_img_path) {
 		this.community_img_path = community_img_path;
+	}
+	
+	public String getCommunity_name() {
+		return community_name;
+	}
+	public void setCommunity_name(String community_name) {
+		this.community_name = community_name;
+	}
+	@Override
+	public String toString() {
+		return "Community [id=" + id + ", community_name=" + community_name
+				+ ", community_introduction=" + community_introduction
+				+ ", community_img_path=" + community_img_path + "]";
 	}
 	
 	

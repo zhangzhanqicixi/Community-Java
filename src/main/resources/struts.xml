@@ -28,8 +28,7 @@
 	<constant name="struts.dispatcher.parametersWorkaround" value="false" />
 
 	<package name="basePackage" extends="struts-default">
-
-
+		
 	</package>
 
 </struts>

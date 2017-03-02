@@ -1,10 +1,13 @@
 package me.cmnt.action;
 
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import me.cmnt.model.Community;
 import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
 
