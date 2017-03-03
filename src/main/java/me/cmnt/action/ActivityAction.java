@@ -10,7 +10,7 @@ import me.cmnt.service.BaseServiceI;
 @ParentPackage("basePackage") // 用package来组织action
 @Action(value = "activity")
 @Namespace("/")
-public class ActivityAction {
+public class ActivityAction extends BaseAction {
 	
 	@Autowired
 	private BaseServiceI activityService;

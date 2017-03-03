@@ -17,12 +17,13 @@ import me.cmnt.service.BaseServiceI;
 @Action(value = "community")
 @Namespace("/")
 @Results({ @Result(name = "community_list", location = "/jsp/common/community/community.jsp") })
-public class CommunityAction {
+public class CommunityAction extends BaseAction {
 
 	@Autowired
 	private BaseServiceI communityService;
-	private String uid;
 	private List<Community> communityList;
+	private String uid;
+	
 	public List<Community> getCommunityList() {
 		return communityList;
 	}
@@ -35,6 +36,7 @@ public class CommunityAction {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
+	
 	/**
 	 * 查找所有社团
 	 * @return
@@ -52,6 +54,7 @@ public class CommunityAction {
 	
 	public void updateCommunity() {
 		System.out.println(uid);
+		System.out.println("1111");
 	}
 
 

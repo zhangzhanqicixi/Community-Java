@@ -10,7 +10,10 @@
 	<properties>
 		<webVersion>3.0</webVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.deploy>deploy</project.deploy>
+		<project.tomcat.version>8.0.0-RC5</project.tomcat.version>
 	</properties>
+
 	<dependencies>
 
 		<!-- spring3 dependency start -->
@@ -229,6 +232,12 @@
 			<artifactId>javax.servlet.jsp.jstl</artifactId>
 			<version>1.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>${project.tomcat.version}</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -257,6 +266,28 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<!-- 远程tomcat下manager路径 -->
+					<url>http://localhost:8080/manager/text</url>
+					<server>tomcat8</server>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>apache.snapshots</id>
+			<url>https://repository.apache.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>
