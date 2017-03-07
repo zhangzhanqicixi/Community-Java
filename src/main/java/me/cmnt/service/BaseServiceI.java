@@ -24,8 +24,8 @@ public interface BaseServiceI {
 	
 	/**
 	 * 查找
-	 * @param obj
-	 * @param queryType
+	 * @param obj 要找到的实例类
+	 * @param queryType 查找类型，默认0为全部查找，1为按主键id查找
 	 * @return
 	 */
 	List<Object> query(Object obj, int queryType);

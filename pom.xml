@@ -250,35 +250,21 @@
 			</resource>
 		</resources>
 		<plugins>
+
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
-					<warSourceDirectory>${basedir}/WebRoot</warSourceDirectory>
+					<!-- 没有这句会报 没有 web.xml错误 -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<!-- 远程tomcat下manager路径 -->
-					<url>http://localhost:8080/manager/text</url>
-					<server>tomcat8</server>
-				</configuration>
-			</plugin>
+
 		</plugins>
 	</build>
 	<repositories>
+
 		<repository>
 			<id>apache.snapshots</id>
 			<url>https://repository.apache.org/content/repositories/snapshots</url>

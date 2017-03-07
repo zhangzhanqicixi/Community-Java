@@ -143,7 +143,7 @@ $(function(){
 								<p><a href="https://code.csdn.net/dwzteam/dwz_jui/tree/master/doc" target="_blank" style="line-height:19px"><span>欢迎进入社团管理系统</span></a></p>
 							</div>
 							<div class="right">
-								<p style="color:red">联系电话 ：0571-xxxxxxxx</a></p>
+								<p style="color:red">联系电话 ：0571-xxxxxxxx</p>
 							</div>
 							<p><span>欢迎进入社团管理系统（社团管理员）</span></p>
 							<p>个人信息：</p>

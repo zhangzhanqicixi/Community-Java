@@ -20,6 +20,9 @@ public class Community {
 	private String community_introduction;
 	@Column(name = "community_img_path")
 	private String community_img_path;
+	
+	
+	
 	public int getId() {
 		return id;
 	}

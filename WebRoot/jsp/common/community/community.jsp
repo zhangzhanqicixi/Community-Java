@@ -13,9 +13,9 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="add" href="demo_page4.html" target="navTab"><span>添加</span></a></li>
+			<li><a class="add" href="jsp/common/community/save.jsp" target="navTab"><span>添加</span></a></li>
 			<li><a class="delete" href="demo/common/ajaxDone.html?uid={eId}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
-			<li><a class="edit" href="community!updateCommunity.action?uid={eId}" target="navTab"><span>修改</span></a></li>
+			<li><a class="edit" href="community!getCommunityByUid.action?uid={eId}" target="navTab"><span>修改</span></a></li>
 			<li class="line">line</li>
 		</ul>
 	</div>
