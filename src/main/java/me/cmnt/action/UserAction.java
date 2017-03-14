@@ -1,5 +1,6 @@
 package me.cmnt.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ListModel;
@@ -9,18 +10,25 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import me.cmnt.model.Community;
 import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
 
 @ParentPackage("basePackage")
 @Action(value = "user")
 @Namespace("/")
-public class UserAction {
+public class UserAction extends BaseAction {
 
 	@Autowired
 	private BaseServiceI userService;
 	private List<User> userList;
+	private User user;
 	private String uid;
+	// 判断登录类型，1.学生/2.社长/3.管理员
+	private String flag;
+	private String loginFlag;
+	private String username;
+	private String password;
 	public List<User> getUserList() {
 		return userList;
 	}
@@ -33,19 +41,69 @@ public class UserAction {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-	public void queryByEntType(int entType) {
-		User user = new User();
-		switch (entType) {
-			case 1: user.setId(Integer.valueOf(uid)); break;
-			default: break;
-		}
-		List<Object> listObjects = userService.query(user, entType);
-		for (Object user_temp : listObjects) {
-			if (user_temp instanceof User) {
-				userList.add((User) user_temp);
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getLoginFlag() {
+		return loginFlag;
+	}
+	public void setLoginFlag(String loginFlag) {
+		this.loginFlag = loginFlag;
+	}
+	
+	@Override
+	public List<User> queryByEntType(int entType) {
+		List<User> listObj = new ArrayList<User>();
+		try {
+			List<Object> listObjects = userService.query(user, entType);
+			for (Object cmnt : listObjects) {
+				if (cmnt != null && cmnt instanceof User) {
+					listObj.add((User) cmnt);
+				}
 			}
+			return listObj;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
 		}
 	}
+	
+	public String login() {
+		List<User> list = queryByEntType(4);
+		if (list != null && !list.isEmpty()) {
+			loginFlag = "登录陈宫！！！";
+			// 登录成功
+		} else {
+			loginFlag = "登录失败！！！";
+			// 登录失败
+		}
+		return "login";
+	}
+	
+	
+	
+	
 	
 	
 	

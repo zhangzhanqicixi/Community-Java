@@ -15,7 +15,7 @@ public class UserDaoImpl extends BaseDaoImpl {
 	/**
      * 根据条件查找用户
      * @param obj
-     * @param queryType --> 0：查找所有用户，1：根据id查找，2：根据username查找，3：根据user_type查找
+     * @param queryType --> 0：查找所有用户，1：根据id查找，2：根据username查找，3：根据user_type查找,4:登录操作
      * @return
      */
 	@Override
@@ -25,9 +25,10 @@ public class UserDaoImpl extends BaseDaoImpl {
 			String HQL = "";
 			switch (queryType) {
 				case 0: HQL = "from User"; break;
-				case 1: HQL = "from User where id = " + user.getId();
-				case 2: HQL = "from User where username = " + user.getUsername();
-				case 3: HQL = "from User where user_type = " + user.getUser_type();
+				case 1: HQL = "from User where id = " + user.getId(); break;
+				case 2: HQL = "from User where username = " + user.getUsername(); break;
+				case 3: HQL = "from User where user_type = " + user.getUser_type(); break;
+				case 4: HQL = "from User as u where u.username ='" + user.getUsername() + "' and u.password='" + user.getPassword() + "' and u.user_type=" + user.getUser_type(); break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {

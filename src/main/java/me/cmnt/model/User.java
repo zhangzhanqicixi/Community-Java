@@ -31,7 +31,7 @@ public class User {
 	
 	@Column(name = "user_tel", length = 100)
 	private String user_tel = "";
-
+	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}

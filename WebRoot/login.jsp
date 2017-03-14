@@ -205,26 +205,26 @@
 <div id="tab">
   <ul class="tab_menu">
     <li class="selected">学生登录</li>
-    <li>主办方登录</li>
+    <li>社长登录</li>
     <li>管理员登录</li>
   </ul>
   <div class="tab_box"> 
     <!-- 学生登录开始 -->
     <div>
       <div class="stu_error_box"></div>
-      <form action="login_Login" method="post" class="stu_login_error">
-      <input type="hidden" name="flag" value="1" />
+      <form action="user!login.action" method="post" class="stu_login_error">
+      <input type="hidden" name="user.user_type" value="1" />
       		  <c:if test="${!empty loginFlag}">
 				<p style="color: red">${loginFlag}</p>
 			</c:if>
         <div id="username">
           <label>账&nbsp;&nbsp;&nbsp;号：</label>
-          <input type="text" id="stu_username_hide" name="username" value="" nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！" sucmsg="账号验证通过！"/>
+          <input type="text" id="stu_username_hide" name="user.username" value="" nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！" sucmsg="账号验证通过！"/>
           <!--ajaxurl="demo/valid.jsp"--> 
         </div>
         <div id="password">
           <label>密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="stu_password_hide" name="password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+          <input type="password" id="stu_password_hide" name="user.password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
         </div>
         <div id="login">
           <button type="submit">登录</button>
@@ -232,45 +232,45 @@
       </form>
     </div>
    <!-- 学生登录结束-->
-   <!-- 主办方登录开始-->
+   <!-- 社长登录开始-->
     <div class="hide">
      <div class="tea_error_box"></div>
-      <form action="login_Login" method="post" class="tea_login_error">
-        <input type="hidden" value="2" name="flag" />
+      <form action="user!login.action" method="post" class="tea_login_error">
+        <input type="hidden" value="2" name="user.user_type" />
              <c:if test="${!empty loginFlag}">
 				<p style="color: red">${loginFlag}</p>
 			</c:if>
         <div id="username">
           <label>账&nbsp;&nbsp;&nbsp;号：</label>
-          <input type="text" id="tea_username_hide" name="username" value="" nullmsg="帐号不能为空！"  datatype="*3-16" errormsg="账号范围在3~18个字符之间！"  sucmsg="账号验证通过！"/>
+          <input type="text" id="tea_username_hide" name="user.username" value="" nullmsg="帐号不能为空！"  datatype="*3-16" errormsg="账号范围在3~18个字符之间！"  sucmsg="账号验证通过！"/>
           <!--ajaxurl="demo/valid.jsp"--> 
         </div>
         <div id="password">
           <label>密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="tea_password_hide" name="password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+          <input type="password" id="tea_password_hide" name="user.password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
         </div>
         <div id="login">
           <button type="submit">登录</button>
         </div>
       </form>
     </div>
-     <!-- 主办方登录结束-->
+     <!-- 社长登录结束-->
      <!-- 管理员登录开始-->
     <div class="hide">
     <div class="sec_error_box"></div>
-      <form action="login_Login" method="post" class="sec_login_error">
-         <input type="hidden" value="3" name="flag"/>
+      <form action="user!login.action" method="post" class="sec_login_error">
+         <input type="hidden" value="3" name="user.user_type"/>
              <c:if test="${!empty loginFlag}">
 				<p style="color: red">${loginFlag}</p>
 			</c:if>
         <div id="username">
           <label>账&nbsp;&nbsp;&nbsp;号：</label>
-          <input type="text" id="sec_username_hide" name="username" value="" nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！" sucmsg="账号验证通过！"/>
+          <input type="text" id="sec_username_hide" name="user.username" value="" nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！" sucmsg="账号验证通过！"/>
           <!--ajaxurl="demo/valid.jsp"--> 
         </div>
         <div id="password">
           <label>密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="sec_password_hide" name="password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+          <input type="password" id="sec_password_hide" name="user.password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
 
         </div>
         <div id="login">
