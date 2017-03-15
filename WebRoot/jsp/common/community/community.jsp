@@ -24,7 +24,9 @@
 			<tr>
 				<th width="80">序号</th>
 				<th width="120">社团名称</th>
+				<th width="80">社长姓名</th>
 				<th>社团介绍</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -37,8 +39,12 @@
 						${community.community_name}
 					</td>
 					<td>
+						${community.proper_name}
+					</td>
+					<td>
 						${community.community_introduction}
 					</td>
+					
 				</tr>
 			</c:forEach>
 		</tbody>

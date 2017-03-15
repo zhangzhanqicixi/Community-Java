@@ -7,23 +7,33 @@
 
 <div class="pageContent">
 
-	<form method="post" action="community!saveOrUpdate.action?callbackType=closeCurrent"
+	<form method="post"
+		action="community!saveOrUpdate.action?callbackType=closeCurrent"
 		class="pageForm required-validate"
 		onsubmit="return validateCallback(this, navTabAjaxDone)">
 		<div class="pageFormContent nowrap" layoutH="97">
-			<input value="${community.id}" type="hidden" name="community.id"/>
+			<input value="${community.id}" type="hidden" name="community.id" />
 			<dl>
 				<dt>社团名称：</dt>
 				<dd>
-					<input value="${community.community_name}" type="text" name="community.community_name" maxlength="20" class="required" />
+					<input value="${community.community_name}" type="text"
+						name="community.community_name" maxlength="20" class="required" />
 					<span class="info">请输入社团名称</span>
 				</dd>
 			</dl>
 			<dl>
 				<dt>社团简介：</dt>
 				<dd>
-					<input value="${community.community_introduction}" type="text" name="community.community_introduction" class="required" /> <span
+					<input value="${community.community_introduction}" type="text"
+						name="community.community_introduction" class="required" /> <span
 						class="info">请输入社团简介"</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>社长学号：</dt>
+				<dd>
+					<input value="${user_id}" type="text" name="user_id"
+						class="required" /> <span class="info">请输入社长学号"</span>
 				</dd>
 			</dl>
 			<dl>

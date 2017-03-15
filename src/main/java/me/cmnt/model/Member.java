@@ -18,8 +18,11 @@ public class Member {
 	private int user_id;
 	@Column(name = "community_id")
 	private int community_id;
-	@Column(name = "user_status")
-	private int user_status;
+	@Column(name = "member_status")
+	private int member_status;
+	@Column(name = "member_type")
+	private int member_type;
+	
 	public int getId() {
 		return id;
 	}
@@ -38,13 +41,16 @@ public class Member {
 	public void setCommunity_id(int community_id) {
 		this.community_id = community_id;
 	}
-	public int getUser_status() {
-		return user_status;
+	public int getMember_status() {
+		return member_status;
 	}
-	public void setUser_status(int user_status) {
-		this.user_status = user_status;
+	public void setMember_status(int member_status) {
+		this.member_status = member_status;
 	}
-	
-	
-
+	public int getMember_type() {
+		return member_type;
+	}
+	public void setMember_type(int member_type) {
+		this.member_type = member_type;
+	}
 }

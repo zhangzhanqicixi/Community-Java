@@ -8,6 +8,8 @@ import javax.swing.ListModel;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import me.cmnt.model.Community;
@@ -17,6 +19,10 @@ import me.cmnt.service.BaseServiceI;
 @ParentPackage("basePackage")
 @Action(value = "user")
 @Namespace("/")
+@Results({
+	@Result(name = "cmnt_page", location = "/WEB-INF/cmnt_admin.jsp"), 
+	@Result(name = "admin_page", location = "/WEB-INF/admin.jsp")
+	})
 public class UserAction extends BaseAction {
 
 	@Autowired
@@ -91,12 +97,21 @@ public class UserAction extends BaseAction {
 	
 	public String login() {
 		List<User> list = queryByEntType(4);
+		loginFlag = "账号或密码错误！";
 		if (list != null && !list.isEmpty()) {
-			loginFlag = "登录陈宫！！！";
 			// 登录成功
-		} else {
-			loginFlag = "登录失败！！！";
-			// 登录失败
+			user = list.get(0);
+			int user_type = user.getUser_type();
+			if (user_type == 1) {
+				// 学生页面
+				return "stu_page";
+			} else if (user_type == 2) {
+				// 社长页面
+				return "cnmt_page";
+			} else if (user_type == 3) {
+				// 管理员页面
+				return "admin_page";
+			}
 		}
 		return "login";
 	}

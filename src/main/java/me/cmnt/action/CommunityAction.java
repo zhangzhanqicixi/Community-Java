@@ -23,8 +23,13 @@ public class CommunityAction extends BaseAction {
 
 	@Autowired
 	private BaseServiceI communityService;
+	@Autowired
+	private BaseServiceI memberService;
+	@Autowired
+	private BaseServiceI userService;
 	private List<Community> communityList;
 	private String uid;
+	private String user_id;
 	private Community community;
 
 	public List<Community> getCommunityList() {
@@ -45,7 +50,13 @@ public class CommunityAction extends BaseAction {
 	public void setCommunity(Community community) {
 		this.community = community;
 	}
-
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	
 	/**
 	 * 根据条件查找,并赋值到communityList
 	 * 
@@ -56,13 +67,8 @@ public class CommunityAction extends BaseAction {
 	public List queryByEntType(int entType) {
 		try {
 			List<Community> listObj = new ArrayList<Community>();
-			Community community = new Community();
-			switch (entType) {
-			case 1:
-				community.setId(Integer.valueOf(uid));
-				break;
-			default:
-				break;
+			if (community == null) {
+				community = new Community();
 			}
 			List<Object> listObjects = communityService.query(community, entType);
 			for (Object cmnt : listObjects) {
@@ -83,7 +89,7 @@ public class CommunityAction extends BaseAction {
 	 * @return
 	 */
 	public String listCommunity() {
-		setCommunityList(queryByEntType(0));
+		communityList = queryByEntType(0);
 		return "community_list";
 	}
 
@@ -95,13 +101,10 @@ public class CommunityAction extends BaseAction {
 	public String saveOrUpdate() {
 		if (community.getId() != 9999) {
 			// update 
-			System.out.println("update");
-			System.out.println(community.getCommunity_name());
 			communityService.update(community);
 			return ajaxForwardSuccess(getText("更新成功！"));
 		} else {
 			// insert
-			System.out.println("insert");
 			communityService.save(community);
 			return ajaxForwardSuccess(getText("添加成功！"));
 		}
@@ -113,7 +116,17 @@ public class CommunityAction extends BaseAction {
 	 * @return
 	 */
 	public String getCommunityByUid() {
+		if (uid != null && !uid.isEmpty()) {
+			community = new Community();
+			community.setId(Integer.valueOf(uid));
+		}
 		community = (Community) queryByEntType(1).get(0);
+		
+		// 去member表中找社长
+		
+		// 去User表中找user
+		
+		// 讲user中的名字赋值
 		return "community_update";
 	}
 

@@ -20,7 +20,8 @@ public class Community {
 	private String community_introduction;
 	@Column(name = "community_img_path")
 	private String community_img_path;
-	
+	@Column(name = "proper_name")
+	private String proper_name;
 	
 	
 	public int getId() {
@@ -41,19 +42,19 @@ public class Community {
 	public void setCommunity_img_path(String community_img_path) {
 		this.community_img_path = community_img_path;
 	}
-	
 	public String getCommunity_name() {
 		return community_name;
 	}
 	public void setCommunity_name(String community_name) {
 		this.community_name = community_name;
 	}
-	@Override
-	public String toString() {
-		return "Community [id=" + id + ", community_name=" + community_name
-				+ ", community_introduction=" + community_introduction
-				+ ", community_img_path=" + community_img_path + "]";
+	public String getProper_name() {
+		return proper_name;
 	}
+	public void setProper_name(String proper_name) {
+		this.proper_name = proper_name;
+	}
+	
 	
 	
 
