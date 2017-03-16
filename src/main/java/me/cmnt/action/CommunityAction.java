@@ -11,6 +11,8 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import me.cmnt.model.Community;
+import me.cmnt.model.Member;
+import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
 
 @ParentPackage("basePackage")
@@ -100,9 +102,27 @@ public class CommunityAction extends BaseAction {
 	 */
 	public String saveOrUpdate() {
 		if (community.getId() != 9999) {
-			// update 
-			communityService.update(community);
-			return ajaxForwardSuccess(getText("更新成功！"));
+			// update
+			// 更新member状态
+			User user = new User();
+			user.setUser_id(user_id);
+			List<Object> user_list = userService.query(user, 5);
+			if (!user_list.isEmpty() && user_list.get(0) instanceof User) {
+				user = (User) user_list.get(0);
+				// update community
+				community.setProper_name(user.getUser_name());
+				communityService.update(community);
+				Member member = new Member();
+				member.setUser_id(user.getId());
+				List<Object> member_list = memberService.query(member, 2);
+				if (!member_list.isEmpty() && member_list.get(0) instanceof Member) {
+					member = (Member) member_list.get(0);
+					member.setMember_type(2);
+					memberService.update(member);
+					return ajaxForwardSuccess(getText("更新成功！"));
+				}
+			}
+			return ajaxForwardError(getText("更新失败！请检查学号是否有效"));
 		} else {
 			// insert
 			communityService.save(community);
@@ -112,7 +132,6 @@ public class CommunityAction extends BaseAction {
 
 	/**
 	 * 获得当前id的信息
-	 * 
 	 * @return
 	 */
 	public String getCommunityByUid() {
@@ -123,11 +142,25 @@ public class CommunityAction extends BaseAction {
 		community = (Community) queryByEntType(1).get(0);
 		
 		// 去member表中找社长
-		
+		Member member = new Member();
+		member.setCommunity_id(community.getId());
+		member.setMember_type(2);
+		List<Object> member_list = memberService.query(member, 4);
+		if(!member_list.isEmpty() && member_list.get(0) instanceof Member) {
+			member = (Member) member_list.get(0);
+		}
+		// 修改member表中社长状态为学生状态
+		member.setMember_type(3);
+		memberService.update(member);
 		// 去User表中找user
-		
-		// 讲user中的名字赋值
+		User user = new User();
+		user.setId(member.getUser_id());
+		List<Object> user_list = userService.query(user, 1);
+		if (!user_list.isEmpty() && user_list.get(0) instanceof User) {
+			user = (User) user_list.get(0);
+		}
+		user_id = user.getUser_id();
 		return "community_update";
 	}
-
+	
 }

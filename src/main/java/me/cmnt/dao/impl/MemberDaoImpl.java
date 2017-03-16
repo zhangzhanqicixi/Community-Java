@@ -13,7 +13,7 @@ public class MemberDaoImpl extends BaseDaoImpl {
 	/**
      * 根据条件查找
      * @param obj
-     * @param queryType --> 0：查找所有成员，1：根据主键id查找，2：根据账号id查找，3：根据社团id查找，4：根据用户状态查找
+     * @param queryType --> 0：查找所有成员，1：根据主键id查找，2：根据账号id查找，3：根据社团id查找，4：根据社团id查找社长
      * @return
      */
 	@Override
