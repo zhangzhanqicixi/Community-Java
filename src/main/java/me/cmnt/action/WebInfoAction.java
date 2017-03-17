@@ -1,11 +1,14 @@
 package me.cmnt.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.sun.xml.internal.rngom.parse.host.Base;
 
 import me.cmnt.model.WebInfo;
 import me.cmnt.service.BaseServiceI;
@@ -14,11 +17,12 @@ import me.cmnt.service.BaseServiceI;
 @Action(value = "webInfo")
 @Namespace("/")
 
-public class WebInfoAction {
+public class WebInfoAction extends BaseAction {
 	@Autowired
 	private BaseServiceI webInfoService;
 	private List<WebInfo> webInfoList;
 	private String uid;
+	private WebInfo webInfo;
 
 	public List<WebInfo> getWebInfoList() {
 		return webInfoList;
@@ -32,18 +36,38 @@ public class WebInfoAction {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-
-	public void queryByEntType(int entType) {
-		WebInfo webInfo = new WebInfo();
-		switch (entType) {
-			case 1: webInfo.setId(Integer.valueOf(uid)); break;
-			default: break;
-		}
-		List<Object> listObjects = webInfoService.query(webInfo, entType);
-		for (Object winfo : listObjects) {
-			if (winfo instanceof WebInfo) {
-				webInfoList.add((WebInfo)winfo);
+	public WebInfo getWebInfo() {
+		return webInfo;
+	}
+	public void setWebInfo(WebInfo webInfo) {
+		this.webInfo = webInfo;
+	}
+	
+	@Override
+	public List queryByEntType(int entType) {
+		try {
+			List<WebInfo> listObj = new ArrayList<WebInfo>();
+			if (webInfo == null) {
+				webInfo = new WebInfo();
 			}
+			List<Object> listObjects = webInfoService.query(webInfo, entType);
+			for (Object cmnt : listObjects) {
+				if (cmnt != null && cmnt instanceof WebInfo) {
+					listObj.add((WebInfo) cmnt);
+				}
+			}
+			return listObj;
+		} catch (Exception e) {
+			return null;		
 		}
 	}
+	
+	public String select_info() {
+		
+		return "webInfo";
+	}
+	
+	
+
+	
 }

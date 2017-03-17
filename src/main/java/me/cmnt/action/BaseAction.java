@@ -45,6 +45,4 @@ public abstract class BaseAction 	extends ActionSupport  {
 		this.message = message;
 		return ajaxForward(300);
 	}
-	
-	
 }
