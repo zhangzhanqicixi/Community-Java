@@ -94,7 +94,7 @@ $(function(){
 					</div>
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
-							<li><a href="queryStu_Stu.action" target="navTab" rel="information_list" title="简介编辑">简介编辑</a></li>
+							<li><a href="community!edit_intro.action?user_id=${user.id}" target="navTab" rel="edit_intro" title="简介编辑">简介编辑</a></li>
 						</ul>
 					</div>
 					
@@ -150,16 +150,16 @@ $(function(){
 						</div>
 						<div class="pageFormContent" layoutH="80" style="margin-right:230px">
 								<p>
-									<label>欢迎您:</label><span class="unit">${stu.stuName}</span>
+									<label>欢迎您:</label><span class="unit">${user.user_name}</span>
 								</p>
 								<p>
-									<label>您的学号:</label><span class="unit">${stu.stuId}</span>
+									<label>您的学号:</label><span class="unit">${user.user_id}</span>
 								</p>
 								<p>
-									<label>所属专业:</label><span class="unit">${stu.stuSpeciality}</span>
+									<label>您的电话:</label><span class="unit">${user.user_tel}</span>
 								</p>
 								<p>
-									<label>所在班级:</label><span class="unit">${stu.stuClass}</span>
+									<label>用户类型:</label><span class="unit">社长</span>
 								</p>
 						</div>
 						

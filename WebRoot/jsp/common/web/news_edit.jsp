@@ -3,10 +3,7 @@
 <%@ include file="../_frag/include/include.inc.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <h2 class="contentTitle">社团管理</h2>
-
-
 <div class="pageContent">
-
 	<form method="post" action="webNews!save.action?callbackType=closeCurrent&navTabId=news_edit"
 		class="pageForm required-validate"
 		onsubmit="return validateCallback(this, navTabAjaxDone)">

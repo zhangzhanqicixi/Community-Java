@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sun.xml.internal.rngom.parse.host.Base;
@@ -16,7 +18,9 @@ import me.cmnt.service.BaseServiceI;
 @ParentPackage("basePackage")
 @Action(value = "webInfo")
 @Namespace("/")
-
+@Results({
+	@Result(name = "webInfo", location = "/jsp/common/web/info_edit.jsp")
+})
 public class WebInfoAction extends BaseAction {
 	@Autowired
 	private BaseServiceI webInfoService;
@@ -44,7 +48,7 @@ public class WebInfoAction extends BaseAction {
 	}
 	
 	@Override
-	public List queryByEntType(int entType) {
+	public List<WebInfo> queryByEntType(int entType) {
 		try {
 			List<WebInfo> listObj = new ArrayList<WebInfo>();
 			if (webInfo == null) {
@@ -63,10 +67,32 @@ public class WebInfoAction extends BaseAction {
 	}
 	
 	public String select_info() {
-		
+		List<WebInfo> list = queryByEntType(0);
+		if (list == null || list.isEmpty()) {
+			return ajaxForwardError("当前没有网站介绍信息，请去数据库添加");
+		}
+		webInfo = list.get(0);
 		return "webInfo";
 	}
 	
+	public String saveOrUpdate() {
+		if (webInfo == null) {
+			return ajaxForwardError("操作失败");
+		}
+		try {
+			if (webInfo.getId() > 0) {
+				// update
+				webInfoService.update(webInfo);
+			} else {
+				// insert
+				webInfoService.save(webInfo);
+			}
+			return ajaxForwardSuccess("操作成功！");
+		} catch (Exception e) {
+			return ajaxForwardError("操作失败！");
+		}
+		
+	}
 	
 
 	

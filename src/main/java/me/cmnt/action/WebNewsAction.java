@@ -48,7 +48,10 @@ public class WebNewsAction extends BaseAction {
 	}
 	
 	public String save() {
-		webNewsService.save(webNews);
-		return ajaxForwardSuccess("保存成功");
+		if (webNews != null) {
+			webNewsService.save(webNews);
+			return ajaxForwardSuccess("保存成功");
+		}
+		return ajaxForwardError("保存失败!");
 	}
 }

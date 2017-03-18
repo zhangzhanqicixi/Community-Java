@@ -13,6 +13,7 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import me.cmnt.model.Community;
+import me.cmnt.model.Member;
 import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
 
@@ -27,8 +28,11 @@ public class UserAction extends BaseAction {
 
 	@Autowired
 	private BaseServiceI userService;
+	@Autowired
+	private BaseServiceI memberService;
 	private List<User> userList;
 	private User user;
+	private Member member;
 	private String uid;
 	// 判断登录类型，1.学生/2.社长/3.管理员
 	private String flag;
@@ -77,6 +81,12 @@ public class UserAction extends BaseAction {
 	public void setLoginFlag(String loginFlag) {
 		this.loginFlag = loginFlag;
 	}
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
+	}
 	
 	@Override
 	public List<User> queryByEntType(int entType) {
@@ -106,8 +116,23 @@ public class UserAction extends BaseAction {
 				// 学生页面
 				return "stu_page";
 			} else if (user_type == 2) {
+				// 去member表中查找，确实该用户是否是真的社长。
+				// 如果是，则进入页面；如果不是，则修改user的user_type为1
+				Member member = new Member();
+				member.setUser_id(user.getId());
+				List<Object> member_list = memberService.query(member, 2);
+				if (member_list != null && !member_list.isEmpty()) {
+					Member member_temp = (Member) member_list.get(0);
+					if (2 == member_temp.getMember_type()) {
+						setMember(member_temp);
+						return "cmnt_page";
+					} else {
+						user.setUser_type(1);
+						userService.update(user);
+					}
+				}
 				// 社长页面
-				return "cnmt_page";
+				return "login";
 			} else if (user_type == 3) {
 				// 管理员页面
 				return "admin_page";

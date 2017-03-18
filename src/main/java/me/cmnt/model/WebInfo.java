@@ -14,7 +14,7 @@ public class WebInfo {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private int id;
-	@Column(name="introdiction")
+	@Column(name="introduction")
 	private String introduction;
 	@Column(name="contact_us")
 	private String contact_us;

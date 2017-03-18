@@ -2,6 +2,8 @@ package me.cmnt.dao.impl;
 
 import java.util.List;
 
+import me.cmnt.model.WebInfo;
+
 import org.springframework.stereotype.Repository;
 
 @Repository("webInfoDao")
@@ -12,7 +14,17 @@ public class WebInfoDaoImpl extends BaseDaoImpl {
 	 */
 	@Override
 	public List<Object> query(Object obj, int queryType) {
-		// TODO Auto-generated method stub
+		if (obj instanceof WebInfo) {
+				WebInfo webInfo = (WebInfo)obj;
+				String HQL = "";
+				switch (queryType) {
+					case 0: HQL = "from WebInfo"; break;
+					default: break;
+				}
+				if (!HQL.isEmpty()) {
+					return sessionFactory.getCurrentSession().createQuery(HQL).list();
+				}
+			}
 		return null;
 	}
 

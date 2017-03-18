@@ -94,10 +94,9 @@ $(function(){
 					</div>
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
-							<li><a href="strust2Test!saveUser.action" target="navTab" rel="information_list" title="新闻编辑">新闻编辑</a></li>
+							<li><a href="jsp/common/web/news_edit.jsp" target="navTab" rel="news_edit" title="新闻编辑">新闻编辑</a></li>
 							<li><a href="updateStu_Stu.action" target="navTab" rel="information_update" title="留言管理">留言管理</a></li>
-							<li><a href="updateStu_Stu.action" target="navTab" rel="information_update" title="联系我们">联系我们</a></li>
-							<li><a href="updateStu_Stu.action" target="navTab" rel="information_update" title="简介编辑">简介编辑</a></li>
+							<li><a href="webInfo!select_info.action" target="navTab" rel="webInfo" title="其他信息">其他信息</a></li>
 						</ul>
 					</div>
 					
