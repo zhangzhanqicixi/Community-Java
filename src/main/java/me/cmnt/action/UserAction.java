@@ -2,6 +2,7 @@ package me.cmnt.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ListModel;
 
@@ -11,6 +12,8 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.opensymphony.xwork2.ActionContext;
 
 import me.cmnt.model.Community;
 import me.cmnt.model.Member;
@@ -100,7 +103,6 @@ public class UserAction extends BaseAction {
 			}
 			return listObj;
 		} catch (Exception e) {
-			System.out.println(e.toString());
 			return null;
 		}
 	}
@@ -108,6 +110,8 @@ public class UserAction extends BaseAction {
 	public String login() {
 		List<User> list = queryByEntType(4);
 		loginFlag = "账号或密码错误！";
+		ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
+		Map<String, Object> session = actionContext.getSession(); // 获得Session容器
 		if (list != null && !list.isEmpty()) {
 			// 登录成功
 			user = list.get(0);
@@ -118,13 +122,13 @@ public class UserAction extends BaseAction {
 			} else if (user_type == 2) {
 				// 去member表中查找，确实该用户是否是真的社长。
 				// 如果是，则进入页面；如果不是，则修改user的user_type为1
-				Member member = new Member();
+				member = new Member();
 				member.setUser_id(user.getId());
 				List<Object> member_list = memberService.query(member, 2);
 				if (member_list != null && !member_list.isEmpty()) {
-					Member member_temp = (Member) member_list.get(0);
-					if (2 == member_temp.getMember_type()) {
-						setMember(member_temp);
+					member = (Member) member_list.get(0);
+					if (2 == member.getMember_type()) {
+						session.put("current_member", member);
 						return "cmnt_page";
 					} else {
 						user.setUser_type(1);

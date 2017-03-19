@@ -26,8 +26,8 @@ public class ActivityDaoImpl extends BaseDaoImpl {
 			String HQL = "";
 			switch (queryType) {
 				case 0: HQL = "from Activity"; break;
-				case 1: HQL = "from Activity where id = " + activity.getId();
-				case 2: HQL = "from Activity where community_id =" + activity.getCommunity_id();
+				case 1: HQL = "from Activity where id = " + activity.getId(); break;
+				case 2: HQL = "from Activity where community_id =" + activity.getCommunity_id(); break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {

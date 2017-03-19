@@ -103,7 +103,7 @@ $(function(){
 					</div>	
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
-							<li><a href="queryCheckedActivity_Activity.action" rel="application_activity" target="navTab"  title="查看活动">查看活动</a></li>
+							<li><a href="activity!list_activity.action?community_id=${member.community_id}" rel="list_activity" target="navTab"  title="查看活动">查看活动</a></li>
 						</ul>
 					</div>	
 					<div class="accordionHeader">
@@ -111,7 +111,7 @@ $(function(){
 					</div>	
 					<div class="accordionContent">
 						<ul class="tree treeFolder">		
-							<li><a href="queryMyApplication_Activity.action" target="navTab" title="进度查询">成员查询</a></li>
+							<li><a href="member!selectMemberByCommunityId.action" target="navTab" title="进度查询">成员查询</a></li>
 							<li><a href="queryMyApplication_Activity.action" target="navTab" title="成员申请">成员申请</a></li>
 						</ul>
 						
