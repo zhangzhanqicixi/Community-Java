@@ -112,7 +112,7 @@ $(function(){
 					<div class="accordionContent">
 						<ul class="tree treeFolder">		
 							<li><a href="member!selectMemberByCommunityId.action" target="navTab" title="进度查询">成员查询</a></li>
-							<li><a href="queryMyApplication_Activity.action" target="navTab" title="成员申请">成员申请</a></li>
+							<li><a href="member!selectApplicationMember.action" target="navTab" title="成员申请">成员申请</a></li>
 						</ul>
 						
 					</div>

@@ -24,7 +24,8 @@ import me.cmnt.service.BaseServiceI;
 @Action(value = "member")
 @Namespace("/")
 @Results({
-	@Result(name = "user_list", location = "/jsp/common/member/member.jsp")
+	@Result(name = "user_list", location = "/jsp/common/member/member.jsp"),
+	@Result(name = "user_app_list", location = "/jsp/common/member/member_application.jsp")
 })
 public class MemberAction extends BaseAction {
 	
@@ -92,7 +93,8 @@ public class MemberAction extends BaseAction {
 		ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
 		Map<String,Object> session = actionContext.getSession();	//获得Session容器
 		member = (Member) session.get("current_member");
-		memberList = queryByEntType(3);
+		member.setMember_status(2);
+		memberList = queryByEntType(5);
 		userList = new ArrayList<User>();
 		for (Member member_local : memberList) {
 			user = new User();
@@ -103,7 +105,40 @@ public class MemberAction extends BaseAction {
 			}
 		}
 		return "user_list";
-		
+	}
+	
+	/**
+	 * 获得申请成员列表
+	 * @return
+	 */
+	public String selectApplicationMember() {
+		ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
+		Map<String,Object> session = actionContext.getSession();	//获得Session容器
+		member = (Member) session.get("current_member");
+		member.setMember_status(1);
+		memberList = queryByEntType(5);
+		userList = new ArrayList<User>();
+		for (Member member_local : memberList) {
+			user = new User();
+			user.setId(member_local.getUser_id());
+			List<Object> user_list = userService.query(user, 1);
+			if (user_list != null && !user_list.isEmpty()) {
+				userList.add((User) user_list.get(0));
+			}
+		}
+		return "user_app_list";
+	}
+	
+	public String confirm() {
+		member = new Member();
+		member.setUser_id(Integer.valueOf(uid));
+		member = queryByEntType(2).get(0);
+		if (member != null) {
+			member.setMember_status(2);
+			memberService.update(member);
+			return ajaxForwardSuccess("状态已更改！");
+		}
+		return ajaxForwardError("修改失败，请重试");
 	}
 	
 }

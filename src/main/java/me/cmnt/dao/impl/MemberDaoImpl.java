@@ -26,7 +26,8 @@ public class MemberDaoImpl extends BaseDaoImpl {
 				case 1: HQL = "from Member where id = " + member.getId(); break;
 				case 2: HQL = "from Member where user_id = " + member.getUser_id(); break; 
 				case 3: HQL = "from Member where community_id = " + member.getCommunity_id(); break;
-				case 4: HQL = "from Member where community_id = " + member.getCommunity_id() + "and member_type = " + member.getMember_type(); break;
+				case 4: HQL = "from Member where community_id = " + member.getCommunity_id() + " and member_type = " + member.getMember_type(); break;
+				case 5: HQL = "from Member where community_id = " + member.getCommunity_id() + " and member_status = " + member.getMember_status(); break;
 			}
 			if (!HQL.isEmpty()) {
 				return sessionFactory.getCurrentSession().createQuery(HQL).list();
