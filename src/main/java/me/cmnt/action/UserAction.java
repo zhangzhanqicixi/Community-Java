@@ -24,8 +24,10 @@ import me.cmnt.service.BaseServiceI;
 @Action(value = "user")
 @Namespace("/")
 @Results({
+	@Result(name = "stu_page", location = "/index.jsp"),
 	@Result(name = "cmnt_page", location = "/WEB-INF/cmnt_admin.jsp"), 
-	@Result(name = "admin_page", location = "/WEB-INF/admin.jsp")
+	@Result(name = "admin_page", location = "/WEB-INF/admin.jsp"),
+	@Result(name = "logout", location= "/login.jsp")
 	})
 public class UserAction extends BaseAction {
 
@@ -143,6 +145,13 @@ public class UserAction extends BaseAction {
 			}
 		}
 		return "login";
+	}
+	
+	public String logout() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.remove("current_member");
+		session.remove("current_member");
+		return "logout";
 	}
 	
 	

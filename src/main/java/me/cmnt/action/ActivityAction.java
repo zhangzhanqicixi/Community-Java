@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.ActionContext;
 
 import me.cmnt.model.Activity;
+import me.cmnt.model.Community;
 import me.cmnt.model.Member;
 import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
@@ -23,18 +24,24 @@ import me.cmnt.service.BaseServiceI;
 @Namespace("/")
 @Results({
 	@Result(name = "list_act", location="/jsp/common/activity/activity.jsp"),
-	@Result(name = "doUpdate", location="/jsp/common/activity/update.jsp")
+	@Result(name = "doUpdate", location="/jsp/common/activity/update.jsp"),
+	@Result(name = "main_list_activity", location="/jsp/main_page/activity.jsp")
 })
 public class ActivityAction extends BaseAction {
 	
 	@Autowired
 	private BaseServiceI activityService;
+	@Autowired
+	private BaseServiceI communityService;
 	private List<Activity> activityList;
 	private String uid;
 	private String community_id;
+	private String community_name;
 	private Activity activity;
 	private User user;
 	private Member member;
+	private Community community;
+	
 	public List<Activity> getActivityList() {
 		return activityList;
 	}
@@ -71,6 +78,13 @@ public class ActivityAction extends BaseAction {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	public String getCommunity_name() {
+		return community_name;
+	}
+	public void setCommunity_name(String community_name) {
+		this.community_name = community_name;
+	}
+	
 	@Override
 	public List<Activity> queryByEntType(int entType) {
 		List<Activity> listObj = new ArrayList<Activity>();
@@ -152,5 +166,16 @@ public class ActivityAction extends BaseAction {
 		} catch (Exception e) {
 			return ajaxForwardError("删除失败！");
 		}
+	}
+	
+	/**
+	 * 社团中的活动
+	 * @return
+	 */
+	public String list_activity_by_id() {
+		activity = new Activity();
+		activity.setCommunity_id(Integer.valueOf(uid));
+		activityList = queryByEntType(2);
+		return "main_list_activity";
 	}
 }

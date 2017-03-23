@@ -24,6 +24,7 @@ public class CommunityDaoImpl extends BaseDaoImpl{
 			switch (queryType) {
 				case 0: HQL = "from Community"; break;
 				case 1: HQL = "from Community where id = " + community.getId(); break;
+				case 2: HQL = "from Community where community_name = '" + community.getCommunity_name() + "'"; break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {

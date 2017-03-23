@@ -281,12 +281,10 @@
      <!-- 管理员登录结束-->
   </div>
 </div>
-<div class="bottom">©2016 HuangBin <a href="javascript:;" target="_blank">关于</a> <span>浙ICP证xxxxxx号</span><img width="13" height="16" src="images/copy_rignt_24.png" /></div>
+<div class="bottom">©2017 xxxxxx <a href="javascript:;" target="_blank">关于</a> <span>浙ICP证xxxxxx号</span><img width="13" height="16" src="images/copy_rignt_24.png" /></div>
 <div class="screenbg">
   <ul>
-    <li><a href="javascript:;"><img src="images/0.jpg"></a></li>
-    <li><a href="javascript:;"><img src="images/1.jpg"></a></li>
-    <li><a href="javascript:;"><img src="images/2.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/index_3.png"></a></li>
   </ul>
 </div>
 </body>

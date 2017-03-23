@@ -21,7 +21,8 @@ import me.cmnt.service.BaseServiceI;
 @Results({
 		@Result(name = "community_list", location = "/jsp/common/community/community.jsp"),
 		@Result(name = "community_update", location = "/jsp/common/community/update.jsp"),
-		@Result(name = "edit_intro", location = "/jsp/common/community/edit_intro.jsp")})
+		@Result(name = "edit_intro", location = "/jsp/common/community/edit_intro.jsp"),
+		@Result(name = "main_community_list", location = "/jsp/main_page/community.jsp")})
 public class CommunityAction extends BaseAction {
 
 	@Autowired
@@ -108,6 +109,16 @@ public class CommunityAction extends BaseAction {
 	public String listCommunity() {
 		communityList = queryByEntType(0);
 		return "community_list";
+	}
+	
+	/**
+	 * 查找所有社团 - 主页
+	 * 
+	 * @return
+	 */
+	public String main_listCommunity() {
+		communityList = queryByEntType(0);
+		return "main_community_list";
 	}
 
 	/**
@@ -212,6 +223,10 @@ public class CommunityAction extends BaseAction {
 		return "edit_intro";
 	}
 	
+	/**
+	 * 更新简介
+	 * @return
+	 */
 	public String update_intro(){
 		if (community == null) {
 			return ajaxForwardError("更新失败！");

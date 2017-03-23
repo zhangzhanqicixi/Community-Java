@@ -64,7 +64,7 @@ $(function(){
 					<a class="logo" href="http://j-ui.com">标志</a>
 				-->
 				<ul class="nav">
-					<li><a href="logout_Login.action">退出</a></li>
+					<li><a href="user!logout.action">退出</a></li>
 				</ul>
 				<ul class="themeList" id="themeList">
 					<li theme="default"><div class="selected">蓝色</div></li>
