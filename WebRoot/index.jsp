@@ -54,9 +54,8 @@
           menu:[{
               text:'首页信息',
               items:[
-                {id:'code',text:'网站简介',href:'allCheckedVideo_Video.action',closeable : false},
-                {id:'main-menu',text:'站内新闻',href:'readyUpload_Video.action'},
-                {id:'second-menu',text:'联系我们',href:'myVideo_Video.action'},
+                {id:'code',text:'网站信息',href:'webInfo!introduction.action',closeable : false},
+                {id:'main-menu',text:'站内新闻',href:'webNews!news_list.action'},
               ]
             },]
           },{
@@ -72,7 +71,8 @@
             menu:[{
                 text:'在线互动',
                 items:[
-                  {id:'code',text:'在线互动',href:'fare_Fare.action'},
+                  {id:'code',text:'在线互动',href:'webMsg!chat_list.action'},
+                  {id:'code',text:'留言添加',href:'webMsg!save_chat.action'},
                 ]
               },]
           }];

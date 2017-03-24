@@ -25,7 +25,9 @@ import me.cmnt.service.BaseServiceI;
 @Namespace("/")
 @Results({
 	@Result(name = "user_list", location = "/jsp/common/member/member.jsp"),
-	@Result(name = "user_app_list", location = "/jsp/common/member/member_application.jsp")
+	@Result(name = "user_app_list", location = "/jsp/common/member/member_application.jsp"),
+	@Result(name = "success_application", location = "/jsp/main_page/success.jsp"),
+	@Result(name = "error_application", location = "/jsp/main_page/fail.jsp")
 })
 public class MemberAction extends BaseAction {
 	
@@ -36,6 +38,7 @@ public class MemberAction extends BaseAction {
 	private List<Member> memberList;
 	private List<User> userList;
 	private String uid;
+	private String message;
 	private Member member;
 	private User user;
 	public List<Member> getMemberList() {
@@ -67,6 +70,12 @@ public class MemberAction extends BaseAction {
 	}
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	@Override
@@ -129,6 +138,10 @@ public class MemberAction extends BaseAction {
 		return "user_app_list";
 	}
 	
+	/**
+	 * 确认修改
+	 * @return
+	 */
 	public String confirm() {
 		member = new Member();
 		member.setUser_id(Integer.valueOf(uid));
@@ -139,6 +152,35 @@ public class MemberAction extends BaseAction {
 			return ajaxForwardSuccess("状态已更改！");
 		}
 		return ajaxForwardError("修改失败，请重试");
+	}
+	
+	/**
+	 * 学生申请加入社团
+	 * @return
+	 */
+	public String application_community() {
+		ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
+		Map<String,Object> session = actionContext.getSession();	//获得Session容器
+		user = (User) session.get("current_user");
+		if (user == null) {
+			message = "您未登陆，请先登陆！";
+			return "error_application";
+		}
+		
+		// member表中添加
+		member = new Member();
+		member.setUser_id(user.getId());
+		member.setMember_type(1);
+		member.setMember_status(1);
+		member.setCommunity_id(Integer.valueOf(uid));
+		List<Member> list = queryByEntType(6);
+		if (!list.isEmpty()) {
+			message = "您已申请，请勿重复操作！";
+			return "error_application";
+		}
+		memberService.save(member);
+		message = "申请成功！请等待审核";
+		return "success_application";
 	}
 	
 }

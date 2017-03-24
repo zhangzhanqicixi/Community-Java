@@ -120,6 +120,7 @@ public class UserAction extends BaseAction {
 			int user_type = user.getUser_type();
 			if (user_type == 1) {
 				// 学生页面
+				session.put("current_user", user);
 				return "stu_page";
 			} else if (user_type == 2) {
 				// 去member表中查找，确实该用户是否是真的社长。
@@ -131,6 +132,7 @@ public class UserAction extends BaseAction {
 					member = (Member) member_list.get(0);
 					if (2 == member.getMember_type()) {
 						session.put("current_member", member);
+						session.put("current_user", user);
 						return "cmnt_page";
 					} else {
 						user.setUser_type(1);
@@ -149,7 +151,6 @@ public class UserAction extends BaseAction {
 	
 	public String logout() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		session.remove("current_member");
 		session.remove("current_member");
 		return "logout";
 	}

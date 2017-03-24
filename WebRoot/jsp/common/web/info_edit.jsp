@@ -5,7 +5,7 @@
 <h2 class="contentTitle">社团管理</h2>
 
 
-<div class="pageContent">                                                                                                                        geContent">
+<div class="pageContent">
 
 	<form method="post"
 		action="webInfo!saveOrUpdate.action?callbackType=closeCurrent&navTabId=news_edit"

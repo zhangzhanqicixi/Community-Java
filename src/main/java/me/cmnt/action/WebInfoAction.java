@@ -19,7 +19,8 @@ import me.cmnt.service.BaseServiceI;
 @Action(value = "webInfo")
 @Namespace("/")
 @Results({
-	@Result(name = "webInfo", location = "/jsp/common/web/info_edit.jsp")
+	@Result(name = "webInfo", location = "/jsp/common/web/info_edit.jsp"),
+	@Result(name = "introduction", location = "/jsp/main_page/introduction.jsp")
 })
 public class WebInfoAction extends BaseAction {
 	@Autowired
@@ -92,6 +93,11 @@ public class WebInfoAction extends BaseAction {
 			return ajaxForwardError("操作失败！");
 		}
 		
+	}
+	
+	public String introduction() {
+		webInfo = (WebInfo) queryByEntType(0).get(0);
+		return "introduction";
 	}
 	
 

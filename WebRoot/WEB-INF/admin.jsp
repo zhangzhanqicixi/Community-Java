@@ -95,7 +95,7 @@ $(function(){
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
 							<li><a href="jsp/common/web/news_edit.jsp" target="navTab" rel="news_edit" title="新闻编辑">新闻编辑</a></li>
-							<li><a href="updateStu_Stu.action" target="navTab" rel="information_update" title="留言管理">留言管理</a></li>
+							<li><a href="webMsg!chat_list_admin.action" target="navTab" rel="webMsg" title="留言管理">留言管理</a></li>
 							<li><a href="webInfo!select_info.action" target="navTab" rel="webInfo" title="其他信息">其他信息</a></li>
 						</ul>
 					</div>

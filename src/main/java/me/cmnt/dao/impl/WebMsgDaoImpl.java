@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import me.cmnt.model.WebMsg;
 
 @Repository("webMsgDao")
-@SuppressWarnings("unchecked")
 public class WebMsgDaoImpl extends BaseDaoImpl{
 
 	/**
@@ -24,7 +23,6 @@ public class WebMsgDaoImpl extends BaseDaoImpl{
 			switch(queryType) {
 				case 0: HQL = "from WebMsg"; break;
 				case 1: HQL = "from WebMsg where id = " + webMsg.getId(); break;
-				case 2: HQL = "from WebMsg where user_id = " + webMsg.getUser_id(); break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {
