@@ -1,4 +1,5 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="jsp/common/_frag/include/include.inc.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1
@@ -7,7 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>校园活动信息管理系统</title>
-<link href="css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+<link href="css/login.css" rel="stylesheet" rev="stylesheet"
+	type="text/css" media="all" />
 <script type="text/javascript" src="js/jQuery1.7.js"></script>
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/jquery1.42.min.js"></script>
@@ -202,90 +204,108 @@
 </head>
 
 <body>
-<div id="tab">
-  <ul class="tab_menu">
-    <li class="selected">学生登录</li>
-    <li>社长登录</li>
-    <li>管理员登录</li>
-  </ul>
-  <div class="tab_box"> 
-    <!-- 学生登录开始 -->
-    <div>
-      <div class="stu_error_box"></div>
-      <form action="user!login.action" method="post" class="stu_login_error">
-      <input type="hidden" name="user.user_type" value="1" />
-      		  <c:if test="${!empty loginFlag}">
-				<p style="color: red">${loginFlag}</p>
-			</c:if>
-        <div id="username">
-          <label>账&nbsp;&nbsp;&nbsp;号：</label>
-          <input type="text" id="stu_username_hide" name="user.username" value="" nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！" sucmsg="账号验证通过！"/>
-          <!--ajaxurl="demo/valid.jsp"--> 
-        </div>
-        <div id="password">
-          <label>密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="stu_password_hide" name="user.password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
-        </div>
-        <div id="login">
-          <button type="submit">登录</button>
-        </div>
-      </form>
-    </div>
-   <!-- 学生登录结束-->
-   <!-- 社长登录开始-->
-    <div class="hide">
-     <div class="tea_error_box"></div>
-      <form action="user!login.action" method="post" class="tea_login_error">
-        <input type="hidden" value="2" name="user.user_type" />
-             <c:if test="${!empty loginFlag}">
-				<p style="color: red">${loginFlag}</p>
-			</c:if>
-        <div id="username">
-          <label>账&nbsp;&nbsp;&nbsp;号：</label>
-          <input type="text" id="tea_username_hide" name="user.username" value="" nullmsg="帐号不能为空！"  datatype="*3-16" errormsg="账号范围在3~18个字符之间！"  sucmsg="账号验证通过！"/>
-          <!--ajaxurl="demo/valid.jsp"--> 
-        </div>
-        <div id="password">
-          <label>密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="tea_password_hide" name="user.password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
-        </div>
-        <div id="login">
-          <button type="submit">登录</button>
-        </div>
-      </form>
-    </div>
-     <!-- 社长登录结束-->
-     <!-- 管理员登录开始-->
-    <div class="hide">
-    <div class="sec_error_box"></div>
-      <form action="user!login.action" method="post" class="sec_login_error">
-         <input type="hidden" value="3" name="user.user_type"/>
-             <c:if test="${!empty loginFlag}">
-				<p style="color: red">${loginFlag}</p>
-			</c:if>
-        <div id="username">
-          <label>账&nbsp;&nbsp;&nbsp;号：</label>
-          <input type="text" id="sec_username_hide" name="user.username" value="" nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！" sucmsg="账号验证通过！"/>
-          <!--ajaxurl="demo/valid.jsp"--> 
-        </div>
-        <div id="password">
-          <label>密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="sec_password_hide" name="user.password" value="" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+	<div id="tab">
+		<ul class="tab_menu">
+			<li class="selected">学生登录</li>
+			<li>社长登录</li>
+			<li>管理员登录</li>
+		</ul>
+		<div class="tab_box">
+			<!-- 学生登录开始 -->
+			<div>
+				<div class="stu_error_box"></div>
+				<form action="user!login.action" method="post"
+					class="stu_login_error">
+					<input type="hidden" name="user.user_type" value="1" />
+					<c:if test="${!empty loginFlag}">
+						<p style="color: red">${loginFlag}</p>
+					</c:if>
+					<div id="username">
+						<label>账&nbsp;&nbsp;&nbsp;号：</label> <input type="text"
+							id="stu_username_hide" name="user.username" value=""
+							nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！"
+							sucmsg="账号验证通过！" />
+						<!--ajaxurl="demo/valid.jsp"-->
+					</div>
+					<div id="password">
+						<label>密&nbsp;&nbsp;&nbsp;码：</label> <input type="password"
+							id="stu_password_hide" name="user.password" value=""
+							nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！"
+							sucmsg="密码验证通过！" />
+					</div>
+					<div id="login">
+						<button type="submit">登录</button>
+					</div>
+				</form>
+			</div>
+			<!-- 学生登录结束-->
+			<!-- 社长登录开始-->
+			<div class="hide">
+				<div class="tea_error_box"></div>
+				<form action="user!login.action" method="post"
+					class="tea_login_error">
+					<input type="hidden" value="2" name="user.user_type" />
+					<c:if test="${!empty loginFlag}">
+						<p style="color: red">${loginFlag}</p>
+					</c:if>
+					<div id="username">
+						<label>账&nbsp;&nbsp;&nbsp;号：</label> <input type="text"
+							id="tea_username_hide" name="user.username" value=""
+							nullmsg="帐号不能为空！" datatype="*3-16" errormsg="账号范围在3~18个字符之间！"
+							sucmsg="账号验证通过！" />
+						<!--ajaxurl="demo/valid.jsp"-->
+					</div>
+					<div id="password">
+						<label>密&nbsp;&nbsp;&nbsp;码：</label> <input type="password"
+							id="tea_password_hide" name="user.password" value=""
+							nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！"
+							sucmsg="密码验证通过！" />
+					</div>
+					<div id="login">
+						<button type="submit">登录</button>
+					</div>
+				</form>
+			</div>
+			<!-- 社长登录结束-->
+			<!-- 管理员登录开始-->
+			<div class="hide">
+				<div class="sec_error_box"></div>
+				<form action="user!login.action" method="post"
+					class="sec_login_error">
+					<input type="hidden" value="3" name="user.user_type" />
+					<c:if test="${!empty loginFlag}">
+						<p style="color: red">${loginFlag}</p>
+					</c:if>
+					<div id="username">
+						<label>账&nbsp;&nbsp;&nbsp;号：</label> <input type="text"
+							id="sec_username_hide" name="user.username" value=""
+							nullmsg="账号不能为空！" datatype="s3-18" errormsg="账号范围在3~18个字符之间！"
+							sucmsg="账号验证通过！" />
+						<!--ajaxurl="demo/valid.jsp"-->
+					</div>
+					<div id="password">
+						<label>密&nbsp;&nbsp;&nbsp;码：</label> <input type="password"
+							id="sec_password_hide" name="user.password" value=""
+							nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！"
+							sucmsg="密码验证通过！" />
 
-        </div>
-        <div id="login">
-          <button type="submit">登录</button>
-        </div>
-      </form>
-    </div>
-     <!-- 管理员登录结束-->
-  </div>
-</div>
-<div class="bottom">©2017 xxxxxx <a href="javascript:;" target="_blank">关于</a> <span>浙ICP证xxxxxx号</span><img width="13" height="16" src="images/copy_rignt_24.png" /></div>
-<div class="screenbg">
-  <ul>
-    <li><a href="javascript:;"><img src="images/index_3.png"></a></li>
-  </ul>
-</div>
+					</div>
+					<div id="login">
+						<button type="submit">登录</button>
+					</div>
+				</form>
+			</div>
+			<!-- 管理员登录结束-->
+		</div>
+	</div>
+	<div class="bottom">
+		©2017 xxxxxx <a href="javascript:;" target="_blank">关于</a> <span>浙ICP证xxxxxx号</span><img
+			width="13" height="16" src="images/copy_rignt_24.png" />
+	</div>
+	<div class="screenbg">
+		<ul>
+			<li><a href="javascript:;"><img src="images/index_3.png"></a></li>
+		</ul>
+	</div>
 </body>
 </html>

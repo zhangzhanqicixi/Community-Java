@@ -27,7 +27,8 @@ import me.cmnt.service.BaseServiceI;
 	@Result(name = "stu_page", location = "/index.jsp"),
 	@Result(name = "cmnt_page", location = "/WEB-INF/cmnt_admin.jsp"), 
 	@Result(name = "admin_page", location = "/WEB-INF/admin.jsp"),
-	@Result(name = "logout", location= "/login.jsp")
+	@Result(name = "logout", location= "/login.jsp"),
+	@Result(name = "q_login", location="/reg.jsp")
 	})
 public class UserAction extends BaseAction {
 
@@ -147,6 +148,32 @@ public class UserAction extends BaseAction {
 			}
 		}
 		return "login";
+	}
+	
+	/**
+	 * 账号注册
+	 * @return
+	 */
+	public String register() {
+		if (user != null) {
+			// 1. 判断该用户是否已存在
+			List<Object> listobj = userService.query(user, 2);
+			if(listobj != null && !listobj.isEmpty()) {
+				loginFlag = "该用户名已存在!";
+				return "q_login";
+			}
+			userService.save(user);
+			Member member = new Member();
+			member.setUser_id(user.getId());
+			member.setCommunity_id(0);
+			member.setMember_type(1);
+			member.setMember_status(0);
+			memberService.save(member);
+			loginFlag = "注册成功！";
+			return "login";
+		}
+		loginFlag = "注册失败！请重试";
+		return "q_login";
 	}
 	
 	public String logout() {
