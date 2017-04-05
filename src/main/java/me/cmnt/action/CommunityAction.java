@@ -144,6 +144,7 @@ public class CommunityAction extends BaseAction {
 				if (!member_list.isEmpty() && member_list.get(0) instanceof Member) {
 					member = (Member) member_list.get(0);
 					member.setMember_type(2);
+					member.setCommunity_id(community.getId());
 					memberService.update(member);
 					return ajaxForwardSuccess(getText("更新成功！"));
 				}
@@ -173,19 +174,24 @@ public class CommunityAction extends BaseAction {
 		member.setMember_type(2);
 		List<Object> member_list = memberService.query(member, 4);
 		if(!member_list.isEmpty() && member_list.get(0) instanceof Member) {
+			// 存在社长
 			member = (Member) member_list.get(0);
+			// 修改member表中社长状态为学生状态
+			member.setMember_type(1);
+			memberService.update(member);
+			// 去User表中找user
+			User user = new User();
+			user.setId(member.getUser_id());
+			List<Object> user_list = userService.query(user, 1);
+			if (!user_list.isEmpty() && user_list.get(0) instanceof User) {
+				user = (User) user_list.get(0);
+			}
+			user_id = user.getUser_id();
+		} else {
+			// 如果没有社长
+			// pass
 		}
-		// 修改member表中社长状态为学生状态
-		member.setMember_type(3);
-		memberService.update(member);
-		// 去User表中找user
-		User user = new User();
-		user.setId(member.getUser_id());
-		List<Object> user_list = userService.query(user, 1);
-		if (!user_list.isEmpty() && user_list.get(0) instanceof User) {
-			user = (User) user_list.get(0);
-		}
-		user_id = user.getUser_id();
+		
 		return "community_update";
 	}
 	

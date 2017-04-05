@@ -99,7 +99,6 @@ $(function(){
 							<li><a href="webInfo!select_info.action" target="navTab" rel="webInfo" title="其他信息">其他信息</a></li>
 						</ul>
 					</div>
-					
 					<div class="accordionHeader">
 						<h2><span>Folder</span>社团管理</h2>
 					</div>	

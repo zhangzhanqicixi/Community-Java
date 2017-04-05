@@ -15,7 +15,6 @@
 	</h1>
 
 	<div class="login" style="margin-top:50px;">
-
 		<div class="header">
 			<div class="switch" id="switch">
 				<a class="switch_btn_focus" id="switch_qlogin"
@@ -26,11 +25,8 @@
 					style="position: absolute; width: 64px; left: 0px;"></div>
 			</div>
 		</div>
-
-
 		<div class="web_qr_login" id="web_qr_login"
 			style="display: block; height: 235px;">
-
 			<!--登录-->
 			<div class="web_login" id="web_login">
 

@@ -26,25 +26,6 @@
 						class="info">请输入社团简介"</span>
 				</dd>
 			</dl>
-			<dl>
-				<dt>图片上传：</dt>
-				<dd>
-					<input id="testFileInput" type="file" name="image"
-						uploaderOption="{
-			swf:'uploadify/scripts/uploadify.swf',
-			uploader:'demo/common/ajaxDone.html',
-			formData:{PHPSESSID:'xxx', ajax:1},
-			buttonText:'请选择文件',
-			fileSizeLimit:'200KB',
-			fileTypeDesc:'*.jpg;*.jpeg;*.gif;*.png;',
-			fileTypeExts:'*.jpg;*.jpeg;*.gif;*.png;',
-			auto:true,
-			multi:true,
-			onUploadSuccess:uploadifySuccess,
-			onQueueComplete:uploadifyQueueComplete
-		}" />
-				</dd>
-			</dl>
 		</div>
 		<div class="formBar">
 			<ul>
