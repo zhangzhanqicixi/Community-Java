@@ -22,7 +22,8 @@ import me.cmnt.service.BaseServiceI;
 		@Result(name = "community_list", location = "/jsp/common/community/community.jsp"),
 		@Result(name = "community_update", location = "/jsp/common/community/update.jsp"),
 		@Result(name = "edit_intro", location = "/jsp/common/community/edit_intro.jsp"),
-		@Result(name = "main_community_list", location = "/jsp/main_page/community.jsp")})
+		@Result(name = "main_community_list", location = "/jsp/main_page/community.jsp"),
+})
 public class CommunityAction extends BaseAction {
 
 	@Autowired
@@ -37,44 +38,64 @@ public class CommunityAction extends BaseAction {
 	private Community community;
 	private User user;
 	private Member member;
+	private String msg;
 
 	public List<Community> getCommunityList() {
 		return communityList;
 	}
+
 	public void setCommunityList(List<Community> communityList) {
 		this.communityList = communityList;
 	}
+
 	public String getUid() {
 		return uid;
 	}
+
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
+
 	public Community getCommunity() {
 		return community;
 	}
+
 	public void setCommunity(Community community) {
 		this.community = community;
 	}
+
 	public String getUser_id() {
 		return user_id;
 	}
+
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 	public Member getMember() {
 		return member;
 	}
+
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 	/**
 	 * 根据条件查找,并赋值到communityList
 	 * 
@@ -88,7 +109,8 @@ public class CommunityAction extends BaseAction {
 			if (community == null) {
 				community = new Community();
 			}
-			List<Object> listObjects = communityService.query(community, entType);
+			List<Object> listObjects = communityService.query(community,
+					entType);
 			for (Object cmnt : listObjects) {
 				if (cmnt != null && cmnt instanceof Community) {
 					listObj.add((Community) cmnt);
@@ -98,7 +120,7 @@ public class CommunityAction extends BaseAction {
 		} catch (Exception e) {
 			return null;
 		}
-		
+
 	}
 
 	/**
@@ -110,7 +132,7 @@ public class CommunityAction extends BaseAction {
 		communityList = queryByEntType(0);
 		return "community_list";
 	}
-	
+
 	/**
 	 * 查找所有社团 - 主页
 	 * 
@@ -135,13 +157,15 @@ public class CommunityAction extends BaseAction {
 			List<Object> user_list = userService.query(user, 5);
 			if (!user_list.isEmpty() && user_list.get(0) instanceof User) {
 				user = (User) user_list.get(0);
+				// update user
+				userService.update(user);
 				// update community
-				community.setProper_name(user.getUser_name());
 				communityService.update(community);
 				Member member = new Member();
 				member.setUser_id(user.getId());
 				List<Object> member_list = memberService.query(member, 2);
-				if (!member_list.isEmpty() && member_list.get(0) instanceof Member) {
+				if (!member_list.isEmpty()
+						&& member_list.get(0) instanceof Member) {
 					member = (Member) member_list.get(0);
 					member.setMember_type(2);
 					member.setCommunity_id(community.getId());
@@ -159,6 +183,7 @@ public class CommunityAction extends BaseAction {
 
 	/**
 	 * 获得当前id的信息
+	 * 
 	 * @return
 	 */
 	public String getCommunityByUid() {
@@ -167,13 +192,13 @@ public class CommunityAction extends BaseAction {
 			community.setId(Integer.valueOf(uid));
 		}
 		community = (Community) queryByEntType(1).get(0);
-		
+
 		// 去member表中找社长
 		Member member = new Member();
 		member.setCommunity_id(community.getId());
 		member.setMember_type(2);
 		List<Object> member_list = memberService.query(member, 4);
-		if(!member_list.isEmpty() && member_list.get(0) instanceof Member) {
+		if (!member_list.isEmpty() && member_list.get(0) instanceof Member) {
 			// 存在社长
 			member = (Member) member_list.get(0);
 			// 修改member表中社长状态为学生状态
@@ -191,12 +216,13 @@ public class CommunityAction extends BaseAction {
 			// 如果没有社长
 			// pass
 		}
-		
+
 		return "community_update";
 	}
-	
+
 	/**
 	 * 根据userId,准备修改社团简介信息
+	 * 
 	 * @return
 	 */
 	public String edit_intro() {
@@ -211,6 +237,7 @@ public class CommunityAction extends BaseAction {
 			return ajaxForwardError("当前用户环境错误，请重新登录");
 		}
 		user = (User) user_list.get(0);
+		// 更新user
 		// 根据user去找member
 		member = new Member();
 		member.setUser_id(user.getId());
@@ -228,17 +255,18 @@ public class CommunityAction extends BaseAction {
 		community = (Community) community_list.get(0);
 		return "edit_intro";
 	}
-	
+
 	/**
 	 * 更新简介
+	 * 
 	 * @return
 	 */
-	public String update_intro(){
+	public String update_intro() {
 		if (community == null) {
 			return ajaxForwardError("更新失败！");
 		}
 		communityService.update(community);
 		return ajaxForwardSuccess("更新成功！");
 	}
-	
+
 }

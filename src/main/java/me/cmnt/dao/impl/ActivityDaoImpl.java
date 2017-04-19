@@ -28,10 +28,15 @@ public class ActivityDaoImpl extends BaseDaoImpl {
 				case 0: HQL = "from Activity"; break;
 				case 1: HQL = "from Activity where id = " + activity.getId(); break;
 				case 2: HQL = "from Activity where community_id =" + activity.getCommunity_id(); break;
+				case 3: HQL = "from Activity"; break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {
-				return sessionFactory.getCurrentSession().createQuery(HQL).list();
+				if (queryType == 3) {
+					return sessionFactory.getCurrentSession().createQuery(HQL).setMaxResults(10).list();
+				} else {
+					return sessionFactory.getCurrentSession().createQuery(HQL).list();
+				}
 			}
 		}
 		return null;

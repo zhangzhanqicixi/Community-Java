@@ -13,7 +13,7 @@ public class WebNewsDaoImpl extends BaseDaoImpl {
 	/**
      * 根据条件查找
      * @param obj
-     * @param queryType --> 0：查找所有，1：根据id查找，2：根据用户id查找
+     * @param queryType --> 0：查找所有，1：根据id查找，2：根据用户id查找，3：显示最多10条新闻
      * @return
      */
 	@Override
@@ -25,10 +25,15 @@ public class WebNewsDaoImpl extends BaseDaoImpl {
 				case 0: HQL = "from WebNews"; break;
 				case 1: HQL = "from WebNews where id = " + webNews.getId(); break;
 				case 2: HQL = "from WebNews where user_id = " + webNews.getUser_id(); break;
+				case 3: HQL = "from WebNews"; break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {
-				return sessionFactory.getCurrentSession().createQuery(HQL).list();
+				if (queryType == 3) {
+					return sessionFactory.getCurrentSession().createQuery(HQL).setMaxResults(10).list();
+				} else {
+					return sessionFactory.getCurrentSession().createQuery(HQL).list();
+				}
 			}
 		}
 		return null;

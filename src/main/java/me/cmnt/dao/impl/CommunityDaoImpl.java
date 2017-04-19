@@ -25,10 +25,15 @@ public class CommunityDaoImpl extends BaseDaoImpl{
 				case 0: HQL = "from Community"; break;
 				case 1: HQL = "from Community where id = " + community.getId(); break;
 				case 2: HQL = "from Community where community_name = '" + community.getCommunity_name() + "'"; break;
+				case 3: HQL = "from Community"; break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {
-				return sessionFactory.getCurrentSession().createQuery(HQL).list();
+				if (queryType == 3) {
+					return sessionFactory.getCurrentSession().createQuery(HQL).setMaxResults(2).list();
+				} else {
+					return sessionFactory.getCurrentSession().createQuery(HQL).list();
+				}
 			}
 		}
 		return null;

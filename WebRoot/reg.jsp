@@ -118,7 +118,7 @@
 							</div></li>
 
 						<input type="hidden" name="user.user_type" maxlength="10"
-							class="inputstyle2" />
+							class="inputstyle2" value="1" />
 
 						<li>
 							<div class="inputArea">

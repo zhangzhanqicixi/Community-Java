@@ -45,6 +45,13 @@ public class UserAction extends BaseAction {
 	private String loginFlag;
 	private String username;
 	private String password;
+	private String newPassword;
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
 	public List<User> getUserList() {
 		return userList;
 	}
@@ -116,36 +123,36 @@ public class UserAction extends BaseAction {
 		ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
 		Map<String, Object> session = actionContext.getSession(); // 获得Session容器
 		if (list != null && !list.isEmpty()) {
-			// 登录成功
+			// 登录成功 - 有问题
 			user = list.get(0);
-			int user_type = user.getUser_type();
-			if (user_type == 1) {
-				// 学生页面
-				session.put("current_user", user);
-				return "stu_page";
-			} else if (user_type == 2) {
-				// 去member表中查找，确实该用户是否是真的社长。
-				// 如果是，则进入页面；如果不是，则修改user的user_type为1
-				member = new Member();
-				member.setUser_id(user.getId());
-				List<Object> member_list = memberService.query(member, 2);
-				if (member_list != null && !member_list.isEmpty()) {
-					member = (Member) member_list.get(0);
-					if (2 == member.getMember_type()) {
-						session.put("current_member", member);
-						session.put("current_user", user);
-						return "cmnt_page";
-					} else {
-						user.setUser_type(1);
-						userService.update(user);
-					}
-				}
-				// 社长页面
-				return "login";
-			} else if (user_type == 3) {
-				// 管理员页面
-				return "admin_page";
-			}
+			// int user_type = user.getUser_type();
+//			if (user_type == 1) {
+//				// 学生页面
+//				session.put("current_user", user);
+//				return "stu_page";
+//			} else if (user_type == 2) {
+//				// 去member表中查找，确实该用户是否是真的社长。
+//				// 如果是，则进入页面；如果不是，则修改user的user_type为1
+//				member = new Member();
+//				member.setUser_id(user.getId());
+//				List<Object> member_list = memberService.query(member, 2);
+//				if (member_list != null && !member_list.isEmpty()) {
+//					member = (Member) member_list.get(0);
+//					if (2 == member.getMember_type()) {
+//						session.put("current_member", member);
+//						session.put("current_user", user);
+//						return "cmnt_page";
+//					} else {
+//						user.setUser_type(1);
+//						userService.update(user);
+//					}
+//				}
+//				// 社长页面
+//				return "login";
+//			} else if (user_type == 3) {
+//				// 管理员页面
+//				return "admin_page";
+//			}
 		}
 		return "login";
 	}
@@ -156,10 +163,21 @@ public class UserAction extends BaseAction {
 	 */
 	public String register() {
 		if (user != null) {
+			// 0. 判断密码和确认密码是否相同
+			if (!newPassword.equals(user.getPassword())) {
+				loginFlag = "两次密码输入不相同，注册失败！";
+				return "q_login";
+			}
 			// 1. 判断该用户是否已存在
 			List<Object> listobj = userService.query(user, 2);
 			if(listobj != null && !listobj.isEmpty()) {
 				loginFlag = "该用户名已存在!";
+				return "q_login";
+			}
+			// 2. 判断该学号是否已存在
+			listobj = userService.query(user, 5);
+			if(listobj != null && !listobj.isEmpty()) {
+				loginFlag = "该学号已存在!";
 				return "q_login";
 			}
 			userService.save(user);

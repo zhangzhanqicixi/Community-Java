@@ -7,23 +7,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "community_activity", schema = "community")
 public class Activity {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)  
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	@Column(name = "activity_title")
 	private String activity_title;
-	
 	@Column(name = "activity_content")
 	private String activity_content;
-	
 	@Column(name = "community_id")
 	private int community_id;
+	@Column(name = "start_time")
+	private String start_time;
 
 	public int getId() {
 		return id;
@@ -56,6 +54,19 @@ public class Activity {
 	public void setCommunity_id(int community_id) {
 		this.community_id = community_id;
 	}
-	
-	
+	public String getStart_time() {
+		return start_time;
+	}
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
+
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"activity_title\":\"" + activity_title
+				+ "\",\"activity_content\":\"" + activity_content
+				+ "\",\"community_id\":\"" + community_id
+				+ "\",\"start_time\":\"" + start_time + "\"}";
+	}
+
 }

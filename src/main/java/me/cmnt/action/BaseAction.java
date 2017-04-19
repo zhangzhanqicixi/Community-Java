@@ -12,10 +12,6 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("basePackage")
 public abstract class BaseAction extends ActionSupport  {
 	
-	/**
-	 * 按条件查找，默认0位查找全部，1位按主键id查找
-	 * @param entType
-	 */
 	public abstract List queryByEntType(int entType);
 	private String message = null;
 	private int statusCode = 200;

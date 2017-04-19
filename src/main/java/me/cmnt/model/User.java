@@ -13,24 +13,16 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private int id;
-	
 	@Column(name = "username", length = 100)
-	private String username = "";
-	
+	private String username;
 	@Column(name = "password", length = 100)
-	private String password = "";
-	
+	private String password;
 	@Column(name = "user_name", length = 100)
-	private String user_name = "";
-	
-	@Column(name = "user_type")
-	private int user_type = 3;
-	
+	private String user_name;
 	@Column(name = "user_id", length = 100)
-	private String user_id = "";
-	
+	private String user_id;
 	@Column(name = "user_tel", length = 100)
-	private String user_tel = "";
+	private String user_tel;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -71,14 +63,6 @@ public class User {
 
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
-	}
-
-	public int getUser_type() {
-		return user_type;
-	}
-
-	public void setUser_type(int user_type) {
-		this.user_type = user_type;
 	}
 
 	public String getUser_id() {

@@ -27,18 +27,19 @@
 	<!-- 对于WebLogic,Orion,OC4J此属性应该设置成true -->
 	<constant name="struts.dispatcher.parametersWorkaround" value="false" />
 
-	<package name="basePackage" extends="struts-default">
+	<package name="basePackage" extends="struts-default,json-default">
 		<global-results>
 			<result name="login">/login.jsp</result>
-			<result name="operationDone">/jsp/management/ajaxDone.jsp</result>
+			<!-- <result name="operationDone">/jsp/management/ajaxDone.jsp</result>
 			<result name="input">jsp/common/${proxy.actionName}/${proxy.method}.jsp
-			</result>
+			</result> -->
 			<!-- <result name="input">/login.jsp</result> -->
 		</global-results>
 		<global-exception-mappings>
-			<exception-mapping result="input" exception="java.lang.NoSuchMethodException" />
-			<exception-mapping result="operationDone" exception="java.lang.Exception" />
+			<exception-mapping result="input"
+				exception="java.lang.NoSuchMethodException" />
+			<exception-mapping result="operationDone"
+				exception="java.lang.Exception" />
 		</global-exception-mappings>
 	</package>
-
 </struts>

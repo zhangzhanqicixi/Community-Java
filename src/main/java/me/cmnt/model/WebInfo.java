@@ -16,8 +16,10 @@ public class WebInfo {
 	private int id;
 	@Column(name="introduction")
 	private String introduction;
-	@Column(name="contact_us")
-	private String contact_us;
+	@Column(name="tel")
+	private String tel;
+	@Column(name="addres")
+	private String addres;
 	public int getId() {
 		return id;
 	}
@@ -30,10 +32,21 @@ public class WebInfo {
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
-	public String getContact_us() {
-		return contact_us;
+	public String getTel() {
+		return tel;
 	}
-	public void setContact_us(String contact_us) {
-		this.contact_us = contact_us;
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getAddres() {
+		return addres;
+	}
+	public void setAddres(String addres) {
+		this.addres = addres;
+	}
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"introduction\":\"" + introduction
+				+ "\",\"tel\":\"" + tel + "\",\"addres\":\"" + addres + "\"}";
 	}
 }

@@ -114,7 +114,6 @@ public class WebMsgAction extends BaseAction {
 		user = (User) session.get("current_user");
 		if (user != null) {
 			webMsg = new WebMsg();
-			webMsg.setUser_name(user.getUser_name());
 			return "prepare_save";
 		}
 		return null;

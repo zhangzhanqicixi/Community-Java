@@ -20,7 +20,7 @@ import me.cmnt.service.BaseServiceI;
 @Namespace("/")
 @Results({
 	@Result(name = "webInfo", location = "/jsp/common/web/info_edit.jsp"),
-	@Result(name = "introduction", location = "/jsp/main_page/introduction.jsp")
+	@Result(name = "introduction", location = "/jsp/main_page/introduction.jsp"),
 })
 public class WebInfoAction extends BaseAction {
 	@Autowired
@@ -28,6 +28,7 @@ public class WebInfoAction extends BaseAction {
 	private List<WebInfo> webInfoList;
 	private String uid;
 	private WebInfo webInfo;
+	private String msg;
 
 	public List<WebInfo> getWebInfoList() {
 		return webInfoList;
@@ -46,6 +47,12 @@ public class WebInfoAction extends BaseAction {
 	}
 	public void setWebInfo(WebInfo webInfo) {
 		this.webInfo = webInfo;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 	
 	@Override
@@ -99,7 +106,5 @@ public class WebInfoAction extends BaseAction {
 		webInfo = (WebInfo) queryByEntType(0).get(0);
 		return "introduction";
 	}
-	
-
 	
 }

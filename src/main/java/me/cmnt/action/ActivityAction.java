@@ -19,16 +19,16 @@ import me.cmnt.model.Member;
 import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
 
-@ParentPackage("basePackage") // 用package来组织action
+@ParentPackage("basePackage")
 @Action(value = "activity")
 @Namespace("/")
 @Results({
-	@Result(name = "list_act", location="/jsp/common/activity/activity.jsp"),
-	@Result(name = "doUpdate", location="/jsp/common/activity/update.jsp"),
-	@Result(name = "main_list_activity", location="/jsp/main_page/activity.jsp")
+		@Result(name = "list_act", location = "/jsp/common/activity/activity.jsp"),
+		@Result(name = "doUpdate", location = "/jsp/common/activity/update.jsp"),
+		@Result(name = "main_list_activity", location = "/jsp/main_page/activity.jsp"),
 })
 public class ActivityAction extends BaseAction {
-	
+
 	@Autowired
 	private BaseServiceI activityService;
 	@Autowired
@@ -37,11 +37,12 @@ public class ActivityAction extends BaseAction {
 	private String uid;
 	private String community_id;
 	private String community_name;
+	private String msg;
 	private Activity activity;
 	private User user;
 	private Member member;
 	private Community community;
-	
+
 	public List<Activity> getActivityList() {
 		return activityList;
 	}
@@ -84,7 +85,13 @@ public class ActivityAction extends BaseAction {
 	public void setCommunity_name(String community_name) {
 		this.community_name = community_name;
 	}
-	
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 	@Override
 	public List<Activity> queryByEntType(int entType) {
 		List<Activity> listObj = new ArrayList<Activity>();
@@ -106,6 +113,7 @@ public class ActivityAction extends BaseAction {
 	
 	/**
 	 * 获得所有活动
+	 * 
 	 * @return
 	 */
 	public String list_activity() {
@@ -116,7 +124,7 @@ public class ActivityAction extends BaseAction {
 		}
 		return "list_act";
 	}
-	
+
 	public String getActByUid() {
 		activity = new Activity();
 		activity.setId(Integer.valueOf(uid));
@@ -127,18 +135,19 @@ public class ActivityAction extends BaseAction {
 		activity = listObj.get(0);
 		return "doUpdate";
 	}
-	
+
 	/**
 	 * 保存或更新活动
+	 * 
 	 * @return
 	 */
 	public String saveOrUpdate() {
 		try {
-		
+
 			if (activity.getId() == 9999) {
 				// insert
-				ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
-				Map<String,Object> session = actionContext.getSession();	//获得Session容器
+				ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
+				Map<String, Object> session = actionContext.getSession(); // 获得Session容器
 				member = (Member) session.get("current_member");
 				activity.setCommunity_id(member.getCommunity_id());
 				activityService.save(activity);
@@ -152,9 +161,10 @@ public class ActivityAction extends BaseAction {
 			return ajaxForwardError("操作失败，请重试！");
 		}
 	}
-	
+
 	/**
 	 * 删除活动
+	 * 
 	 * @return
 	 */
 	public String delete() {
@@ -167,9 +177,10 @@ public class ActivityAction extends BaseAction {
 			return ajaxForwardError("删除失败！");
 		}
 	}
-	
+
 	/**
 	 * 社团中的活动
+	 * 
 	 * @return
 	 */
 	public String list_activity_by_id() {
@@ -178,4 +189,6 @@ public class ActivityAction extends BaseAction {
 		activityList = queryByEntType(2);
 		return "main_list_activity";
 	}
+
+	
 }

@@ -20,6 +20,9 @@ public class WebNews {
 	private String news_content;
 	@Column(name="user_id")
 	private int user_id;
+	@Column(name="insert_time")
+	private String insert_time;
+	
 	public int getId() {
 		return id;
 	}
@@ -44,7 +47,16 @@ public class WebNews {
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	
-	
-	
+	public String getInsert_time() {
+		return insert_time;
+	}
+	public void setInsert_time(String insert_time) {
+		this.insert_time = insert_time;
+	}
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"news_title\":\"" + news_title
+				+ "\",\"news_content\":\"" + news_content + "\",\"user_id\":\""
+				+ user_id + "\",\"insert_time\":\"" + insert_time + "\"}";
+	}
 }
