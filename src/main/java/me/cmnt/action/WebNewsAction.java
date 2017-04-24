@@ -23,6 +23,7 @@ import me.cmnt.service.BaseServiceI;
 @Namespace("/")
 @Results({ 
 		@Result(name = "news_list", location = "/jsp/main_page/news.jsp"),
+		@Result(name = "new_details", location = "/homepage/shownews.jsp")
 })
 public class WebNewsAction extends BaseAction {
 
@@ -95,5 +96,12 @@ public class WebNewsAction extends BaseAction {
 	public String news_list() {
 		webNewsList = queryByEntType(0);
 		return "news_list";
+	}
+	
+	public String getNewsDetails() {
+		webNews = new WebNews();
+		webNews.setId(Integer.valueOf(uid));
+		webNews = queryByEntType(1).get(0);
+		return "new_details";
 	}
 }

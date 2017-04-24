@@ -22,6 +22,8 @@ public class WebNews {
 	private int user_id;
 	@Column(name="insert_time")
 	private String insert_time;
+	@Column(name="news_img_path")
+	private String news_img_path;
 	
 	public int getId() {
 		return id;
@@ -53,10 +55,18 @@ public class WebNews {
 	public void setInsert_time(String insert_time) {
 		this.insert_time = insert_time;
 	}
+	public String getNews_img_path() {
+		return news_img_path;
+	}
+	public void setNews_img_path(String news_img_path) {
+		this.news_img_path = news_img_path;
+	}
 	@Override
 	public String toString() {
 		return "{\"id\":\"" + id + "\",\"news_title\":\"" + news_title
 				+ "\",\"news_content\":\"" + news_content + "\",\"user_id\":\""
-				+ user_id + "\",\"insert_time\":\"" + insert_time + "\"}";
+				+ user_id + "\",\"insert_time\":\"" + insert_time
+				+ "\",\"news_img_path\":\"" + news_img_path + "\"}";
 	}
+	
 }

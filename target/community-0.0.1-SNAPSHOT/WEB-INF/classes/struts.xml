@@ -42,5 +42,4 @@
 				exception="java.lang.Exception" />
 		</global-exception-mappings>
 	</package>
-
 </struts>

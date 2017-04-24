@@ -131,7 +131,4 @@ public class WebMsgAction extends BaseAction {
 		webMsgService.delete(webMsg);
 		return ajaxForwardSuccess("删除成功！");
 	}
-	
-	
-	
 }

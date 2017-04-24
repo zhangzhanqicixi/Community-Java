@@ -33,7 +33,7 @@
                 <li id='nav_2' style='width:121px;'><a href='news.jsp' class='hover-none nav'><span>站内新闻</span></a>
                 </li>
                 <li class="line"></li>
-                <li id='nav_3' style='width:121px;'><a href='index.jsp' class='hover-none nav'><span>社团浏览</span></a>
+                <li id='nav_3' style='width:121px;'><a href='community.jsp' class='hover-none nav'><span>社团浏览</span></a>
                 </li>
                 <li class="line"></li>
                 <li id='nav_4' style='width:121px;' class='navdown'><a href='activity.jsp' class='hover-none nav'><span>社团活动</span></a>
@@ -56,7 +56,7 @@
 </div>
 
 
-<div class="sidebar inner">
+<div class="sidebar inner"> 
     <div class="sb_nav">
 
         <h3 class='title myCorner' data-corner='top 5px'>社团活动</h3>

@@ -39,7 +39,7 @@
                 <li id='nav_2' style='width:121px;'><a href='news.jsp' class='hover-none nav'><span>站内新闻</span></a>
                 </li>
                 <li class="line"></li>
-                <li id='nav_3' style='width:121px;'><a href='index.jsp' class='hover-none nav'><span>社团浏览</span></a>
+                <li id='nav_3' style='width:121px;'><a href='community.jsp' class='hover-none nav'><span>社团浏览</span></a>
                 </li>
                 <li class="line"></li>
                 <li id='nav_4' style='width:121px;'><a href='activity.jsp' class='hover-none nav'><span>社团活动</span></a>
@@ -62,8 +62,8 @@
         <ul id='slider6' class='list-none'>
             <li><a href='#' target='_blank'><img src='images/community_1.jpg' width='980' height='245'></a></li>
             <li><a href='#' target='_blank'><img src='images/community_2.jpg' width='980' height='245'></a></li>
-            <li><a href='#' target='_blank'><img src='images/1342430031.jpg' width='980' height='245'></a></li>
-            <li><a href='#' target='_blank'><img src='images/1342430031.jpg' width='980' height='245'></a></li>
+            <li><a href='#' target='_blank'><img src='images/community_3.png' width='980' height='245'></a></li>
+            <li><a href='#' target='_blank'><img src='images/community_4.jpg' width='980' height='245'></a></li>
         </ul>
     </div>
     <script type='text/javascript'>$(document).ready(function () {

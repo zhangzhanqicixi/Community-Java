@@ -1,5 +1,6 @@
-package me.cmnt.action;
+  package me.cmnt.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.cmnt.model.Activity;
@@ -23,12 +24,16 @@ import com.opensymphony.xwork2.ActionSupport;
 @Namespace("/")
 @Results({
 	@Result(name = "json", type = "json"),
+	@Result(name = "json_news", type = "json")
 })
 public class AjaxAction extends BaseAction {
 	private String msgAct;
 	private String msgNews;
 	private String msgIntro;
 	private String msgCmnt;
+	private String msgActCmnt;
+	private String webNews;
+	private String uid;
 	@Autowired
 	private BaseServiceI activityService;
 	@Autowired
@@ -61,6 +66,37 @@ public class AjaxAction extends BaseAction {
 	public void setMsgCmnt(String msgCmnt) {
 		this.msgCmnt = msgCmnt;
 	}
+	public String getMsgActCmnt() {
+		return msgActCmnt;
+	}
+	public void setMsgActCmnt(String msgActCmnt) {
+		this.msgActCmnt = msgActCmnt;
+	}
+	public String getWebNews() {
+		return webNews;
+	}
+	public void setWebNews(String webNews) {
+		this.webNews = webNews;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	
+	/**
+	 * 获得新闻详情内容
+	 * @return
+	 */
+	public String getWebNewsDetails() {
+		if (uid != null) {
+			WebNews webNews_ = new WebNews();
+			webNews_.setId(Integer.valueOf(uid));
+			webNews = webNewsService.query(webNews_, 1).get(0).toString();
+		}
+		return "json";
+	}
 	
 	/**
 	 * 获得全部新闻
@@ -78,9 +114,28 @@ public class AjaxAction extends BaseAction {
 	 * 获得全部社团活动
 	 * @return
 	 */
+	@SuppressWarnings("null")
 	public String getAllActivity() {
 		List list = activityService.query(new Activity(), 0);
+		List<Community> listCmnt = new ArrayList<Community>();
 		if (list != null) {
+			for (Object object : list) {
+				if (object instanceof Activity) {
+					Community community = new Community();
+					try {
+						int community_id = ((Activity) object).getCommunity_id();
+						community.setId(community_id);
+						community = (Community) communityService.query(community, 1).get(0);
+						if (0 == community.getId()) {
+							community = null;
+						}
+					} catch (Exception e) {
+						community = null;
+					}
+					listCmnt.add(community);
+				}
+			}
+			msgActCmnt = listCmnt.toString();
 			msgAct = list.toString();
 		}
 		return "json";
@@ -98,7 +153,10 @@ public class AjaxAction extends BaseAction {
 		return "json";
 	}
 	
-	
+	/**
+	 * 主页请求
+	 * @return
+	 */
 	@SuppressWarnings("finally")
 	public String homepageInfo() {
 		try {
