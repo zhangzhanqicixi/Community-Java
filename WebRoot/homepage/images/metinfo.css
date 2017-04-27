@@ -558,7 +558,7 @@ nav ul li.hover a:hover, nav ul li.navdown a:hover {
 
 #tabs-nav li a.flex-active {
 	background: #fff;
-	cursor: default;
+	cursor: defawt;
 }
 
 .index-links {
@@ -822,6 +822,10 @@ nav ul li.hover a:hover, nav ul li.navdown a:hover {
 }
 
 #shownews .info {
+	border-bottom: 1px dotted #ccc;
+}
+
+.comment {
 	border-bottom: 1px dotted #ccc;
 }
 
@@ -1462,6 +1466,10 @@ ul.searchnavlist li {
 	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
 }
+
+/* #nav_32 {
+	display:block;统一转化为块级元素 overflow: hidden; width: 0; height: 0;
+} */
 
 .white {
 	color: #606060;

@@ -154,9 +154,7 @@ $(function(){
 								</p>
 						</div>
 						
-						<div style="width:230px;position: absolute;top:60px;right:0" layoutH="80">
-							<iframe width="100%" height="430" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?width=0&height=430&fansRow=2&ptype=1&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1739071261&verifier=c683dfe7"></iframe>
-						</div>
+						<div style="width:230px;position: absolute;top:60px;right:0" layoutH="80" />
 					</div>
 					
 				</div>

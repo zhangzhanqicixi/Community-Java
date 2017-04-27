@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.ListModel;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -24,11 +28,12 @@ import me.cmnt.service.BaseServiceI;
 @Action(value = "user")
 @Namespace("/")
 @Results({
-	@Result(name = "stu_page", location = "/index.jsp"),
+	@Result(name = "stu_page", location = "/homepage/index.jsp", type="redirect"),
 	@Result(name = "cmnt_page", location = "/WEB-INF/cmnt_admin.jsp"), 
 	@Result(name = "admin_page", location = "/WEB-INF/admin.jsp"),
 	@Result(name = "logout", location= "/login.jsp"),
-	@Result(name = "q_login", location="/reg.jsp")
+	@Result(name = "homepage_logout", location = "/homepage/index.jsp", type="redirect"),
+	@Result(name = "login", location="/login.jsp")
 	})
 public class UserAction extends BaseAction {
 
@@ -43,15 +48,7 @@ public class UserAction extends BaseAction {
 	// 判断登录类型，1.学生/2.社长/3.管理员
 	private String flag;
 	private String loginFlag;
-	private String username;
-	private String password;
-	private String newPassword;
-	public String getNewPassword() {
-		return newPassword;
-	}
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
+	private final static String USER_COOKIE = "USER_COOKIE";
 	public List<User> getUserList() {
 		return userList;
 	}
@@ -75,18 +72,6 @@ public class UserAction extends BaseAction {
 	}
 	public void setUser(User user) {
 		this.user = user;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getLoginFlag() {
 		return loginFlag;
@@ -117,42 +102,117 @@ public class UserAction extends BaseAction {
 		}
 	}
 	
+	/**
+	 * 主页登录
+	 * @return
+	 */
+	public String homepage_login() {
+		flag = "账号或密码错误！";
+		List<User> list = queryByEntType(4);
+		ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
+		Map<String, Object> session = actionContext.getSession(); // 获得Session容器
+		if (list != null && !list.isEmpty()) {
+			// 登录成功 
+			user = list.get(0);
+			// 获得memeber对象
+			Member member = new Member();
+			member.setUser_id(user.getId());
+			for (Object object : memberService.query(member, 2)) {
+				if (object instanceof Member) {
+					int member_type = ((Member) object).getMember_type();
+					if (member_type == 1) {
+						// 学生
+						member = (Member) object;
+					}
+				}
+			}
+			if (member != null && member.getId() != 0) {
+				session.put("member", member);
+				session.put("user", user);
+				int member_type = member.getMember_type();
+				// 类型判断
+				if (member_type == 1) {
+					Cookie cookie = new Cookie(USER_COOKIE, user.getUsername() + "," + user.getPassword());
+					cookie.setMaxAge(60 * 60 * 24 * 1); // 保存时间为1天
+					ServletActionContext.getResponse().addCookie(cookie);
+					return "stu_page";
+				}
+			}
+		}
+		return "login";
+	}
+	
+	/**
+	 * 主页登出
+	 * @return
+	 */
+	public String homepage_logout() {
+		// 删除session
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.remove("member");
+		session.remove("user");
+		HttpServletResponse response = ServletActionContext.getResponse();
+		//清除登陆页面缓存  
+		response.setHeader("Pragma","No-cache");   
+		response.setHeader("Cache-Control","no-cache");  
+		response.setHeader("Cache-Control", "no-store");  
+		response.setDateHeader("Expires", 0); 
+		// 删除cookie (置空）
+		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+		if (cookies != null) {
+			for (Cookie each : cookies) {
+				if (USER_COOKIE.equals(each.getName())) {
+					Cookie cookie = new Cookie(USER_COOKIE, "");
+					cookie.setMaxAge(0);
+					ServletActionContext.getResponse().addCookie(cookie);
+				}
+			}
+		}
+		return "homepage_logout";
+	}
+	
+	/**
+	 * 后台登录
+	 * @return
+	 */
 	public String login() {
 		List<User> list = queryByEntType(4);
 		loginFlag = "账号或密码错误！";
 		ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
 		Map<String, Object> session = actionContext.getSession(); // 获得Session容器
 		if (list != null && !list.isEmpty()) {
-			// 登录成功 - 有问题
+			// 登录成功 
 			user = list.get(0);
-			// int user_type = user.getUser_type();
-//			if (user_type == 1) {
-//				// 学生页面
-//				session.put("current_user", user);
-//				return "stu_page";
-//			} else if (user_type == 2) {
-//				// 去member表中查找，确实该用户是否是真的社长。
-//				// 如果是，则进入页面；如果不是，则修改user的user_type为1
-//				member = new Member();
-//				member.setUser_id(user.getId());
-//				List<Object> member_list = memberService.query(member, 2);
-//				if (member_list != null && !member_list.isEmpty()) {
-//					member = (Member) member_list.get(0);
-//					if (2 == member.getMember_type()) {
-//						session.put("current_member", member);
-//						session.put("current_user", user);
-//						return "cmnt_page";
-//					} else {
-//						user.setUser_type(1);
-//						userService.update(user);
-//					}
-//				}
-//				// 社长页面
-//				return "login";
-//			} else if (user_type == 3) {
-//				// 管理员页面
-//				return "admin_page";
-//			}
+			// 获得memeber对象
+			Member member = new Member();
+			member.setUser_id(user.getId());
+			for(Object object : memberService.query(member, 2)) {
+				if (object instanceof Member) {
+					int member_type = ((Member) object).getMember_type();
+					if (member_type == 3) {
+						// 管理员
+						member = (Member) object;
+						break;
+					} else if (member_type == 2) {
+						// 社长
+						if (member_type != 3) {
+							member = (Member) object;
+							break;
+						}
+					}
+				}
+			}
+			if (member != null && member.getId() != 0) {
+				session.put("member", member);
+				session.put("user", user);
+				int member_type = member.getMember_type();
+				// 类型判断
+				if (member_type == 3) {
+					return "admin_page";
+				} else if (member_type == 2) {
+					return "cmnt_page";
+				}
+			}
 		}
 		return "login";
 	}
@@ -163,22 +223,17 @@ public class UserAction extends BaseAction {
 	 */
 	public String register() {
 		if (user != null) {
-			// 0. 判断密码和确认密码是否相同
-			if (!newPassword.equals(user.getPassword())) {
-				loginFlag = "两次密码输入不相同，注册失败！";
-				return "q_login";
-			}
 			// 1. 判断该用户是否已存在
 			List<Object> listobj = userService.query(user, 2);
 			if(listobj != null && !listobj.isEmpty()) {
-				loginFlag = "该用户名已存在!";
-				return "q_login";
+				flag = "该用户名已存在!";
+				return "login";
 			}
 			// 2. 判断该学号是否已存在
 			listobj = userService.query(user, 5);
 			if(listobj != null && !listobj.isEmpty()) {
-				loginFlag = "该学号已存在!";
-				return "q_login";
+				flag = "该学号已存在!";
+				return "login";
 			}
 			userService.save(user);
 			Member member = new Member();
@@ -187,16 +242,33 @@ public class UserAction extends BaseAction {
 			member.setMember_type(1);
 			member.setMember_status(0);
 			memberService.save(member);
-			loginFlag = "注册成功！";
+			flag = "注册成功！";
 			return "login";
 		}
 		loginFlag = "注册失败！请重试";
-		return "q_login";
+		return "login";
 	}
 	
+	/**
+	 * 退出
+	 * @return
+	 */
 	public String logout() {
+		// 删除session
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		session.remove("current_member");
+		session.remove("member");
+		session.remove("user");
+		// 删除cookie (置空）
+		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+		if (cookies != null) {
+			for (Cookie each : cookies) {
+				if ("user.cookie".equals(each.getName())) {
+					Cookie cookie = new Cookie("USER_COOKIE", "");
+					cookie.setMaxAge(0);
+					ServletActionContext.getResponse().addCookie(cookie);
+				}
+			}
+		}
 		return "logout";
 	}
 	

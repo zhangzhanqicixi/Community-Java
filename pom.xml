@@ -101,7 +101,9 @@
 			<artifactId>struts2-json-plugin</artifactId>
 			<version>2.3.15.2</version>
 		</dependency>
-
+		<!-- struts2 upload -->
+		 
+		
 		<!-- hibernate 4 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

@@ -15,6 +15,7 @@
 <script src="images/jQuery1.7.2.js" type="text/javascript"></script>
 <script src="images/ch.js" type="text/javascript"></script>
 <script src="admin/js/newsDetails.js" type="text/javascript"></script>
+<script src="admin/js/common.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -22,8 +23,8 @@
 	<div class="inner">
 		<div class="top-logo"></div>
 		<nav>
-		<ul class="list-none">
-			<li id="nav_10001" style='width:121px;'><a href='index_1.jsp'
+		<ul class="list-none" id="list-none">
+			<li id="nav_0" style='width:121px;'><a href='index_1.jsp'
 				class='nav'><span>网站首页</span></a></li>
 			<li class="line"></li>
 			<li id='nav_1' style='width:121px;'><a href='about.jsp'
@@ -38,10 +39,10 @@
 			<li id='nav_4' style='width:121px;'><a href='news.jsp'
 				class='hover-none nav'><span>社团活动</span></a></li>
 			<li class="line"></li>
-			<li id='nav_32' style='width:121px;'><a href='index.jsp'
+			<li id='nav_5' style='width:121px;'><a href='index.jsp'
 				class='hover-none nav'><span>联系我们</span></a></li>
 			<li class="line"></li>
-			<li id='nav_36' style='width:120px;'><a href='index.jsp'
+			<li id='nav_6' style='width:120px;'><a href='index.jsp'
 				class='hover-none nav'><span>学生登录</span></a></li>
 		</ul>
 		</nav>
@@ -94,8 +95,6 @@
 					<h1 class="title"></h1>
 					<div class="author_time">作者：管理员&nbsp;&nbsp;&nbsp;&nbsp;更新时间：&nbsp;</div>
 				</div>
-
-
 				<div class="editor">
 					<div>
 						<div class="article"></div>
@@ -103,12 +102,34 @@
 						<div id="metinfo_additional"></div>
 					</div>
 					<div class="imgshow" align="center">
-						<img src="news_image/new_img.jpg">
+						<img id="news_img">
 					</div>
 					<div class="clear"></div>
 				</div>
 				<div class="met_hits" />
-
+			</div>
+			
+			<h2 align="left">写评论:</h2>
+			<div class="comment">
+				<textarea rows="3" cols="76" id="comment_textarea"></textarea>
+				<button type="button" id="comment_button" > 提交 </button>
+			</div>
+			
+			<h2 align="left">相关评论:</h2>
+			<div class="comment" >
+				<div class="comment_info">
+					<div class="comment_content">2017-03-54 12:03:21 管理员： 我是一条评论</div>
+				</div>
+			</div>
+			<div class="comment" >
+				<div class="comment_info">
+					<div class="comment_content">2017-03-54 12:03:21 沸腾的小切克： aaaaa</div>
+				</div>
+			</div>
+			<div class="comment" >
+				<div class="comment_info">
+					<div class="comment_content">2017-03-54 12:03:21 张不是： dddddddsada </div>
+				</div>
 			</div>
 		</div>
 		<div class="clear"></div>

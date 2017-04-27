@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="images/metinfo.css"/>
     <script src="images/jQuery1.7.2.js" type="text/javascript"></script>
     <script src="images/ch.js" type="text/javascript"></script>
-
+	<script src="admin/js/common.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -23,7 +23,7 @@
 
         </div>
         <nav>
-            <ul class="list-none">
+            <ul class="list-none" id="list-none">
                 <li id="nav_10001" style='width:121px;'><a href='index_1.jsp' class='nav'><span>网站首页</span></a></li>
                 <li class="line"></li>
                 <li id='nav_1' style='width:121px;'><a href='about.jsp' class='hover-none nav'><span>网站简介</span></a>

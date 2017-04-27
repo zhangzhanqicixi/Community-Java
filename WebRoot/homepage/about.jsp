@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="images/metinfo.css"/>
     <script src="images/jQuery1.7.2.js" type="text/javascript"></script>
     <script src="images/ch.js" type="text/javascript"></script>
-
+	<script src="admin/js/about.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
@@ -30,8 +30,8 @@
         </div>
 
         <nav>
-            <ul class="list-none">
-                <li id="nav_10001" style='width:121px;'><a href='index.jsp' class='nav'><span>网站首页</span></a></li>
+            <ul class="list-none" id="list-none">
+                <li id="nav_0" style='width:121px;'><a href='index.jsp' class='nav'><span>网站首页</span></a></li>
                 <li class="line"></li>
                 <li id='nav_1' style='width:121px;' class='navdown'><a href='about.jsp' class='hover-none nav'><span>网站简介</span></a>
                 </li>
@@ -45,10 +45,10 @@
                 <li id='nav_4' style='width:121px;'><a href='news.jsp' class='hover-none nav'><span>社团活动</span></a>
                 </li>
                 <li class="line"></li>
-                <li id='nav_32' style='width:121px;'><a href='index.jsp' class='hover-none nav'><span>联系我们</span></a>
+                <li id='nav_5' style='width:121px;'><a href='index.jsp' class='hover-none nav'><span>联系我们</span></a>
                 </li>
                 <li class="line"></li>
-                <li id='nav_36' style='width:120px;'><a href='index.jsp' class='hover-none nav'><span>学生登录</span></a>
+                <li id='nav_6' style='width:120px;'><a href='index.jsp' class='hover-none nav'><span>学生登录</span></a>
                 </li>
             </ul>
         </nav>
@@ -66,7 +66,7 @@
         <h3 class='title myCorner' data-corner='top 5px'>网站简介</h3>
         <div class="active" id="sidebar" data-csnow="2" data-class3="0" data-jsok="2">
             <dl class="list-none navnow">
-                <dt id='part2_4'><a href='#' title='公司动态' class="zm"><span>网站介绍</span></a></dt>
+                <dt id='part2_4'><a href='#' title='网站动态' class="zm"><span>网站介绍</span></a></dt>
             </dl>
             <div class="clear"></div>
         </div>
@@ -96,7 +96,7 @@
             <div class="position">当前位置：<a href="index.jsp" title="网站首页">网站首页</a> &gt; <a
                     href="./about.jsp">网站简介</a>
             </div>
-            <span>公司简介</span>
+            <span>网站简介</span>
         </h3>
         <div class="clear"></div>
 

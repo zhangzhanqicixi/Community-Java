@@ -23,6 +23,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @Action(value = "ajax")
 @Namespace("/")
 @Results({
+	//params={"includeProperties", "msgIntro, msgNews, msgAct, msgCmnt, uid"}
 	@Result(name = "json", type = "json"),
 	@Result(name = "json_news", type = "json")
 })
@@ -85,6 +86,10 @@ public class AjaxAction extends BaseAction {
 		this.uid = uid;
 	}
 	
+	public String saveComment() {
+		return "json";
+	}
+	
 	/**
 	 * 获得新闻详情内容
 	 * @return
@@ -93,7 +98,7 @@ public class AjaxAction extends BaseAction {
 		if (uid != null) {
 			WebNews webNews_ = new WebNews();
 			webNews_.setId(Integer.valueOf(uid));
-			webNews = webNewsService.query(webNews_, 1).get(0).toString();
+			webNews = webNewsService.query(webNews_, 1).get(0).toString().replace("\n", "\\n");
 		}
 		return "json";
 	}
@@ -105,7 +110,7 @@ public class AjaxAction extends BaseAction {
 	public String getAllNews() {
 		List list = webNewsService.query(new WebNews(), 0);
 		if (list != null) {
-			msgNews = list.toString();
+			msgNews = list.toString().replace("\n", "\\n");
 		}
 		return "json";
 	}
