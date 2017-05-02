@@ -39,10 +39,10 @@
                 <li id='nav_2' style='width:121px;'><a href='news.jsp' class='hover-none nav'><span>站内新闻</span></a>
                 </li>
                 <li class="line"></li>
-                <li id='nav_3' style='width:121px;'><a href='index.jsp' class='hover-none nav'><span>社团浏览</span></a>
+                <li id='nav_3' style='width:121px;'><a href='community.jsp' class='hover-none nav'><span>社团浏览</span></a>
                 </li>
                 <li class="line"></li>
-                <li id='nav_4' style='width:121px;'><a href='news.jsp' class='hover-none nav'><span>社团活动</span></a>
+                <li id='nav_4' style='width:121px;'><a href='activity.jsp' class='hover-none nav'><span>社团活动</span></a>
                 </li>
                 <li class="line"></li>
                 <li id='nav_5' style='width:121px;'><a href='index.jsp' class='hover-none nav'><span>联系我们</span></a>

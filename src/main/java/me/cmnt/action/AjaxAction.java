@@ -5,9 +5,13 @@ import java.util.List;
 
 import me.cmnt.model.Activity;
 import me.cmnt.model.Community;
+import me.cmnt.model.Member;
+import me.cmnt.model.User;
 import me.cmnt.model.WebInfo;
+import me.cmnt.model.WebMsg;
 import me.cmnt.model.WebNews;
 import me.cmnt.service.BaseServiceI;
+import me.cmnt.util.Util;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -25,7 +29,14 @@ import com.opensymphony.xwork2.ActionSupport;
 @Results({
 	//params={"includeProperties", "msgIntro, msgNews, msgAct, msgCmnt, uid"}
 	@Result(name = "json", type = "json"),
-	@Result(name = "json_news", type = "json")
+	@Result(name = "json_info", type= "json", params = {"includeProperties", "msgAct, msgNews, msgIntro, msgCmnt"}),
+	@Result(name = "json_comment", type= "json", params = {"includeProperties", "newsComment, newsCommentUser"}),
+	@Result(name = "json_cmnt", type = "json", params = {"includeProperties", "msgCmnt"}),
+	@Result(name = "json_cmnt_details", type = "json", params = {"includeProperties", "cmntSingle, msgUser"}),
+	@Result(name = "json_news", type = "json", params = {"includeProperties", "msgNews"}),
+	@Result(name = "json_acts", type = "json", params = {"includeProperties", "msgAct, msgActCmnt"}),
+	@Result(name = "json_act", type = "json", params = {"includeProperties", "msgAct, msgActCmnt"}),
+	@Result(name = "json_member", type = "json", params = {"includeProperties", "msgMember"})
 })
 public class AjaxAction extends BaseAction {
 	private String msgAct;
@@ -33,8 +44,15 @@ public class AjaxAction extends BaseAction {
 	private String msgIntro;
 	private String msgCmnt;
 	private String msgActCmnt;
+	private String msgUser;
+	private String msgMember;
 	private String webNews;
+	private String newsComment;
+	private String newsCommentUser;
+	private String cmntSingle;
 	private String uid;
+	private String username;
+	private String content;
 	@Autowired
 	private BaseServiceI activityService;
 	@Autowired
@@ -43,6 +61,13 @@ public class AjaxAction extends BaseAction {
 	private BaseServiceI webInfoService;
 	@Autowired
 	private BaseServiceI communityService;
+	@Autowired
+	private BaseServiceI userService;
+	@Autowired
+	private BaseServiceI webMsgService;
+	@Autowired
+	private BaseServiceI memberService;
+	
 	public String getMsgAct() {
 		return msgAct;
 	}
@@ -85,10 +110,198 @@ public class AjaxAction extends BaseAction {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getNewsComment() {
+		return newsComment;
+	}
+	public void setNewsComment(String newsComment) {
+		this.newsComment = newsComment;
+	}
+	public String getNewsCommentUser() {
+		return newsCommentUser;
+	}
+	public void setNewsCommentUser(String newsCommentUser) {
+		this.newsCommentUser = newsCommentUser;
+	}
+	public String getMsgUser() {
+		return msgUser;
+	}
+	public void setMsgUser(String msgUser) {
+		this.msgUser = msgUser;
+	}
+	public String getCmntSingle() {
+		return cmntSingle;
+	}
+	public void setCmntSingle(String cmntSingle) {
+		this.cmntSingle = cmntSingle;
+	}
+	public String getMsgMember() {
+		return msgMember;
+	}
+	public void setMsgMember(String msgMember) {
+		this.msgMember = msgMember;
+	}
 	
+	public String getActivityDetails() {
+		Activity activity = new Activity();
+		Community community = new Community();
+		activity.setId(Integer.valueOf(uid));
+		List list = activityService.query(activity, 1);
+		if (list != null && !list.isEmpty()) {
+			if (list.get(0) instanceof Activity) {
+				activity = (Activity) list.get(0);
+				try {
+					int community_id = activity.getCommunity_id();
+					community.setId(community_id);
+					community = (Community) communityService.query(community, 1).get(0);
+					if (0 == community.getId()) {
+						community = null;
+					}
+				} catch (Exception e) {
+					community = null;
+				}
+			}
+			msgActCmnt = community.toString();
+			msgAct = activity.toString();
+		}
+		return "json_act";
+	}
+	
+	/**
+	 * 判断该成员是否已加入该社团
+	 * @return
+	 */
+	public String validateMember() {
+		if (username != null && uid != null) {
+			Member member = new Member();
+			User user = new User();
+			user.setUsername(username);
+			List list = userService.query(user, 2);
+			if (list != null && !list.isEmpty()) {
+				user = (User) list.get(0);
+				member.setUser_id(user.getId());
+				member.setCommunity_id(Integer.valueOf(uid));
+				List member_list = memberService.query(member, 6);
+				if (member_list != null && !member_list.isEmpty()) {
+					// 已存在该member
+					member = (Member) member_list.get(0);
+				} else {
+					// 存储该成员的申请
+					member.setMember_status(0);
+					member.setMember_type(1);
+					member.setMember_apply_reason(content);
+					memberService.save(member);
+					member = new Member();
+				}
+			}
+			msgMember = member.toString();
+		}
+		return "json_member";
+	}
+	
+	/**
+	 * 查找某个社团详细信息
+	 * @return
+	 */
+	public String getCommunityDetails() {
+		Community community = new Community();
+		community.setId(Integer.valueOf(uid));
+		List list = communityService.query(community, 1);
+		if (list != null && !list.isEmpty()) {
+			community = (Community) list.get(0);
+			cmntSingle = community.toString();
+			// 去找社长
+			Member member = new Member();
+			member.setCommunity_id(community.getId());
+			member.setMember_type(2);
+			List list_member = memberService.query(member, 4);
+			if (list_member != null && !list_member.isEmpty()) {
+				member = (Member) list_member.get(0);
+				User user = new User();
+				user.setId(member.getUser_id());
+				List list_user = userService.query(user, 1);
+				user = (User) list_user.get(0);
+				msgUser = user.toString();
+			}
+		}
+		return "json_cmnt_details";
+	}
+	
+	/**
+	 * 查找所有社团
+	 * @return
+	 */
+	public String getAllCommunity() {
+		List list = communityService.query(new Community(), 0);
+		if (list != null) {
+			msgCmnt = list.toString().replace("\n", "\\n");
+		}
+		return "json_cmnt";
+	}
+	
+	/**
+	 * 保存评论
+	 * @return
+	 */
 	public String saveComment() {
+		// 获得该username的userid
+		User user = new User();
+		user.setUsername(username);
+		List list = userService.query(user, 2);
+		if (list != null) {
+			user = (User) list.get(0);
+			WebMsg webMsg = new WebMsg();
+			webMsg.setUser_id(user.getId());
+			webMsg.setContent(content);
+			webMsg.setNews_id(Integer.valueOf(uid));
+			webMsg.setInsert_time(Util.getCurrentTime());
+			webMsgService.save(webMsg);
+		}
 		return "json";
 	}
+	
+	/**
+	 * 获得该条新闻的所有评论
+	 * @return
+	 */
+	public String CommentByNews() {
+		// 获得所有新闻
+		WebMsg webMsg = new WebMsg();
+		webMsg.setNews_id(Integer.valueOf(uid));
+		List list = webMsgService.query(webMsg, 2);
+		List<User> user_list = new ArrayList<User>();
+		// 便利每条新闻，获得评论人信息
+		if (list != null) {
+			for (Object object : list) {
+				if (object instanceof WebMsg) {
+					WebMsg wm = (WebMsg) object;
+					User user = new User();
+					int user_id = wm.getUser_id();
+					user.setId(user_id);
+					user = (User) userService.query(user, 1).get(0);
+					if (0 == user.getId()) {
+						user = null;
+					}
+					user_list.add(user);
+				}
+			}
+		}
+		newsComment = list.toString();
+		newsCommentUser = user_list.toString();
+		return "json_comment";
+	}
+	
 	
 	/**
 	 * 获得新闻详情内容
@@ -112,7 +325,7 @@ public class AjaxAction extends BaseAction {
 		if (list != null) {
 			msgNews = list.toString().replace("\n", "\\n");
 		}
-		return "json";
+		return "json_news";
 	}
 	
 	/**
@@ -143,7 +356,7 @@ public class AjaxAction extends BaseAction {
 			msgActCmnt = listCmnt.toString();
 			msgAct = list.toString();
 		}
-		return "json";
+		return "json_acts";
 	}
 	
 	/**
@@ -170,7 +383,7 @@ public class AjaxAction extends BaseAction {
 			pre2Community();
 			getContact();
 		} finally {
-			return "json";
+			return "json_info";
 		}
 	}
 	
@@ -214,6 +427,7 @@ public class AjaxAction extends BaseAction {
 			msgCmnt = list.toString();
 		}
 	}
+	
 	
 	@Override
 	public List queryByEntType(int entType) {

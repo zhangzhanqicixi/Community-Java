@@ -17,6 +17,9 @@ $(document).ready(function () {
         }
     });
     
+    getComment(uid)
+    
+    
     if (validateUser()) {
     	$('#nav_6').remove()
     	$('#list-none').append("<li id='nav_7' style='width:120px'><a href='../login.jsp' class='hover-none nav'><span>个人信息</span></a><li class='line'></li>")
@@ -39,15 +42,25 @@ $(document).ready(function () {
 	$('#comment_button').click(function() {
 		if (validateUser()) {
 			var username = getCookie("USER_COOKIE").split(',')[0].replace('"', '')
-//			$.ajax({
-//				type: 'get',
-//				url: 'ajax!saveComment.action',
-//				data: 'username=' + username,
-//				dataType: 'json',
-//				success: function (data) {
-//					
-//				}
-//			})
+			var uid = getUrlParam('uid')
+			var content = $('#comment_textarea').val()
+			
+			if ('' == content.trim()) {
+				alert('评论不能为空！')
+				return false;
+			}
+			
+			$.ajax({
+				type: 'get',
+				url: '../ajax!saveComment.action',
+				data: 'username=' + username + '&uid=' + uid + '&content=' + content,
+				dataType: 'json',
+				success: function (data) {
+					alert('评论成功！')
+					$('#comment_textarea').val('')
+					getComment(uid)
+				}
+			})
 	    } else {
 	    	alert('请先登录！')
 	    }
@@ -55,6 +68,33 @@ $(document).ready(function () {
 	
 });
 
+function getComment(uid) {
+	$('.comment').remove()
+	// 获得该新闻评论
+    $.ajax({
+        url: '../ajax!CommentByNews.action',
+        type: 'GET',
+        data: 'uid=' + uid,
+        dataType: 'json',
+        success: function (data) {
+        	$.each(eval("(" + data.newsComment + ")"), function (i, value) {
+        		var content = value.content
+        		var commnet_user = eval("(" + data.newsCommentUser + ")")
+        		var user_name = commnet_user[i].user_name
+        		$('#showComment').after('<div class="comment" ><div class="comment_info"><div class="comment_content">' + value.insert_time.split('.')[0] + ' '+ user_name +'： ' + content + '</div></div></div>')
+        	});
+        	//newsDetails = JSON.parse(data.newsComment)
+        	
+        }
+    });
+}
+
+//获取url中的参数
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
 
 function getQueryString(name) {
 	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');

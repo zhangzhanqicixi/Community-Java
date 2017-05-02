@@ -15,7 +15,7 @@ $(document).ready(function () {
             		name = community.community_name
             	}
                 var insert_time = value.start_time.split(' ')[0]
-                $('ul').append("<li class='list top'><span>[" + insert_time + "]</span><a href='shownews.jsp' title='如何选择网站关键词?' target='_self'>" 
+                $('ul').append("<li class='list top'><span>[" + insert_time + "]</span><a href='showactivity.jsp?uid=" + value.id + "' title='如何选择网站关键词?' target='_self'>" 
                 		+ value.activity_title + " &nbsp; -- &nbsp; 【" + name + "】</a></li>")
             });
         }

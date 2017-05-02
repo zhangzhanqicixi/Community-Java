@@ -6,6 +6,7 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
+		<li><a class="edit" href="member!userInfo.action?uid={eId}&callbackType=closeCurrent" target="navTab" title="详情"><span>详情</span></a></li>
 			<li class="line">line</li>
 		</ul>
 	</div>

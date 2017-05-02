@@ -7,23 +7,31 @@
 
 <div class="pageContent">
 
-	<form method="post" action="community!saveOrUpdate.action?callbackType=closeCurrent"
+	<form enctype="multipart/form-data" method="post" 
+		action="community!saveOrUpdate.action?callbackType=closeCurrent"
 		class="pageForm required-validate"
-		onsubmit="return validateCallback(this, navTabAjaxDone)">
+		onsubmit="return iframeCallback(this, navTabAjaxDone);"">
 		<div class="pageFormContent nowrap" layoutH="97">
 			<input value="9999" type="hidden" name="community.id"/>
 			<dl>
-				<dt>社团名称：</dt>
+				<dt>创建社团名称：</dt>
 				<dd>
-					<input value="${community.community_name}" type="text" name="community.community_name" maxlength="20" class="required" />
+					<input type="text"
+						name="community.community_name" maxlength="20" class="required" />
 					<span class="info">请输入社团名称</span>
 				</dd>
 			</dl>
 			<dl>
 				<dt>社团简介：</dt>
 				<dd>
-					<input value="${community.community_introduction}" type="text" name="community.community_introduction" class="required" /> <span
+					<textarea rows="3" cols="70" name="community.community_introduction" class="required" > </textarea> <span
 						class="info">请输入社团简介"</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>社团图片上传：</dt>
+				<dd>
+					<input type="file" name="file" />
 				</dd>
 			</dl>
 		</div>

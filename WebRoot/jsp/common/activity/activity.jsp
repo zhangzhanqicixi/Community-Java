@@ -18,6 +18,7 @@
 				<th width="80">序号</th>
 				<th width="120">活动名称</th>
 				<th width="80">活动内容</th>
+				<th width="80">开始时间</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,6 +32,9 @@
 					</td>
 					<td>
 						${activity.activity_content}
+					</td>
+					<td>
+						${activity.start_time}
 					</td>
 				</tr>
 			</c:forEach>

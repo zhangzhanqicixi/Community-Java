@@ -33,7 +33,7 @@
 			<li id='nav_2' style='width:121px;' class='navdown'><a
 				href='news.jsp' class='hover-none nav'><span>站内新闻</span></a></li>
 			<li class="line"></li>
-			<li id='nav_3' style='width:121px;'><a href='index.jsp'
+			<li id='nav_3' style='width:121px;'><a href='community.jsp'
 				class='hover-none nav'><span>社团浏览</span></a></li>
 			<li class="line"></li>
 			<li id='nav_4' style='width:121px;'><a href='news.jsp'
@@ -110,27 +110,12 @@
 			</div>
 			
 			<h2 align="left">写评论:</h2>
-			<div class="comment">
+			<div class="comment_write">
 				<textarea rows="3" cols="76" id="comment_textarea"></textarea>
 				<button type="button" id="comment_button" > 提交 </button>
 			</div>
 			
-			<h2 align="left">相关评论:</h2>
-			<div class="comment" >
-				<div class="comment_info">
-					<div class="comment_content">2017-03-54 12:03:21 管理员： 我是一条评论</div>
-				</div>
-			</div>
-			<div class="comment" >
-				<div class="comment_info">
-					<div class="comment_content">2017-03-54 12:03:21 沸腾的小切克： aaaaa</div>
-				</div>
-			</div>
-			<div class="comment" >
-				<div class="comment_info">
-					<div class="comment_content">2017-03-54 12:03:21 张不是： dddddddsada </div>
-				</div>
-			</div>
+			<h2 align="left" id="showComment">相关评论:</h2>
 		</div>
 		<div class="clear"></div>
 	</div>

@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Scope;
+
 @Entity
 @Table(name = "community", schema = "community")
 public class Community {
@@ -20,7 +22,6 @@ public class Community {
 	private String community_introduction;
 	@Column(name = "community_img_path")
 	private String community_img_path;
-	
 	
 	public int getId() {
 		return id;

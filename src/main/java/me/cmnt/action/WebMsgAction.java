@@ -25,7 +25,8 @@ import me.cmnt.service.BaseServiceI;
 	@Result(name = "message_list", location = "/jsp/main_page/webMessage.jsp"),
 	@Result(name = "prepare_save", location = "/jsp/main_page/saveMsg.jsp"),
 	@Result(name = "success", location = "/jsp/main_page/success.jsp"),
-	@Result(name = "message_list_admin", location = "/jsp/common/web/chat_edit.jsp")
+	@Result(name = "message_list_admin", location = "/jsp/common/web/chat_edit.jsp"),
+	@Result(name = "msgByNews", location="/jsp/common/web/news_list_admin_msg.jsp")
 })
 public class WebMsgAction extends BaseAction {
 	
@@ -119,16 +120,43 @@ public class WebMsgAction extends BaseAction {
 		return null;
 	}
 	
+	/**
+	 * 查找某条新闻的所有留言
+	 * @return
+	 */
+	public String getMsgByNews() {
+		WebMsg webMsg = new WebMsg();
+		webMsg.setNews_id(Integer.valueOf(uid));
+		List list = webMsgService.query(webMsg, 2);
+		webMsgList = new ArrayList<WebMsg>();
+		if (list != null && !list.isEmpty()) {
+			for (Object object : list) {
+				if (object instanceof WebMsg) {
+					webMsgList.add((WebMsg) object);
+				}
+			}
+		}
+		return "msgByNews";
+	}
+	
 	public String save() {
 		webMsgService.save(webMsg);
 		message = "保存成功！";
 		return "success";
 	}
 	
+	/**
+	 * 删除留言信息
+	 * @return
+	 */
 	public String delete() {
-		WebMsg webMsg = new WebMsg();
-		webMsg.setId(Integer.valueOf(uid));
-		webMsgService.delete(webMsg);
-		return ajaxForwardSuccess("删除成功！");
+		try {
+			WebMsg webMsg = new WebMsg();
+			webMsg.setId(Integer.valueOf(uid));
+			webMsgService.delete(webMsg);
+			return ajaxForwardSuccess("删除成功！");
+		} catch (Exception e) {
+			return ajaxForwardError("删除失败！");
+		}
 	}
 }

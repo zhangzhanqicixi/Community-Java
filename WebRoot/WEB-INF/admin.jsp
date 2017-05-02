@@ -95,7 +95,7 @@ $(function(){
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
 							<li><a href="jsp/common/web/news_edit.jsp" target="navTab" rel="news_edit" title="新闻编辑">新闻编辑</a></li>
-							<li><a href="webMsg!chat_list_admin.action" target="navTab" rel="webMsg" title="留言管理">留言管理</a></li>
+							<li><a href="webNews!news_manager.action" target="navTab" rel="news_list" title="新闻管理">新闻管理</a></li>
 							<li><a href="webInfo!select_info.action" target="navTab" rel="webInfo" title="其他信息">其他信息</a></li>
 						</ul>
 					</div>
@@ -163,7 +163,7 @@ $(function(){
 
 	</div>
 
-	<div id="footer">Copyright &copy; 2010 <a href="demo_page2.html" target="dialog">zhangzhe</a> 浙ICP备00000000号-10</div>
+	<div id="footer">Copyright &copy; 2010 <a href="demo_page2.html" target="dialog">xxxxxxxx</a> 浙ICP备00000000号-10</div>
 
 
 </body>

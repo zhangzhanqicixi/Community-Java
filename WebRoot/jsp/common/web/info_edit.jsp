@@ -21,10 +21,17 @@
 				</dd>
 			</dl>
 			<dl>
-				<dt>联系我们：</dt>
+				<dt>联系电话：</dt>
 				<dd>
-					<textarea class="editor" name="webInfo.contact_us" rows="6"
-						cols="100">${webInfo.contact_us}</textarea>
+					<textarea class="editor" name="webInfo.tel" rows="6"
+						cols="100">${webInfo.tel}</textarea>
+				</dd>
+			</dl>
+			<dl>
+				<dt>地址：</dt>
+				<dd>
+					<textarea class="editor" name="webInfo.addres" rows="6"
+						cols="100">${webInfo.addres}</textarea>
 				</dd>
 			</dl>
 		</div>

@@ -18,6 +18,7 @@ import me.cmnt.model.Community;
 import me.cmnt.model.Member;
 import me.cmnt.model.User;
 import me.cmnt.service.BaseServiceI;
+import me.cmnt.util.Util;
 
 @ParentPackage("basePackage")
 @Action(value = "activity")
@@ -143,13 +144,23 @@ public class ActivityAction extends BaseAction {
 	 */
 	public String saveOrUpdate() {
 		try {
-
+			
+			String insert_time = "";
+			if (msg != null) {
+				String[] t = msg.split("T");
+				insert_time = t[0] + " " + t[1] + ":00";
+			} else {
+				insert_time = Util.getCurrentTime();
+			}
 			if (activity.getId() == 9999) {
 				// insert
 				ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
 				Map<String, Object> session = actionContext.getSession(); // 获得Session容器
-				member = (Member) session.get("current_member");
-				activity.setCommunity_id(member.getCommunity_id());
+				member = (Member) session.get("member");
+				if (member != null) {
+					activity.setCommunity_id(member.getCommunity_id());
+				}
+				activity.setStart_time(insert_time);
 				activityService.save(activity);
 				return ajaxForwardSuccess("保存成功！");
 			} else {

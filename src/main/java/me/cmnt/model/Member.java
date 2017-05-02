@@ -22,6 +22,8 @@ public class Member {
 	private int member_status;
 	@Column(name = "member_type")
 	private int member_type;
+	@Column(name = "member_apply_reason")
+	private String member_apply_reason;
 	
 	public int getId() {
 		return id;
@@ -53,4 +55,21 @@ public class Member {
 	public void setMember_type(int member_type) {
 		this.member_type = member_type;
 	}
+	public String getMember_apply_reason() {
+		return member_apply_reason;
+	}
+	public void setMember_apply_reason(String member_apply_reason) {
+		this.member_apply_reason = member_apply_reason;
+	}
+	
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"user_id\":\"" + user_id
+				+ "\",\"community_id\":\"" + community_id
+				+ "\",\"member_status\":\"" + member_status
+				+ "\",\"member_type\":\"" + member_type
+				+ "\",\"member_apply_reason\":\"" + member_apply_reason
+				+ "\"}";
+	}
+	
 }

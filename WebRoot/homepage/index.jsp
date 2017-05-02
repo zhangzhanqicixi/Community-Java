@@ -111,7 +111,7 @@
 
 		<div class="case style-2">
 			<h3 class='title myCorner' data-corner='top 5px'>
-				<a href="" title="链接关键词" class="more">更多>></a>社团介绍
+				<a href="community.jsp" title="链接关键词" class="more">更多>></a>社团介绍
 			</h3>
 			<div class="active dl-jqrun contour-1" id="list_communities"
 				style="height: 202px;"></div>
@@ -121,7 +121,7 @@
 		<div class="index-news style-1">
 			<h3 class="title">
 				<span class='myCorner' data-corner='top 5px'>站内新闻</span> <a
-					href="./news.jsp" class="more" title="链接关键词">更多>></a>
+					href="news.jsp" class="more" title="链接关键词">更多>></a>
 			</h3>
 			<div class="active clear listel contour-2" style="height: 360px;">
 				<ol class='list-none metlist' id='list_news'></ol>
@@ -131,7 +131,7 @@
 		<div class="index-news style-1">
 			<h3 class="title">
 				<span class='myCorner' data-corner='top 5px'>社团活动</span><a
-					href="./activity.jsp" class="more" title="链接关键词">更多>></a>
+					href="activity.jsp" class="more" title="链接关键词">更多>></a>
 			</h3>
 			<div class="active clear listel contour-2" style="height: 360px;">
 				<ol class='list-none metlist' id='list_activities'></ol>

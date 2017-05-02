@@ -12,7 +12,7 @@ public class WebMsgDaoImpl extends BaseDaoImpl{
 	/**
      * 根据条件查找用户
      * @param obj
-     * @param queryType --> 0：查找所有用户，1：根据id查找，2：根据user_id查找
+     * @param queryType --> 0：查找所有用户，1：根据id查找，2：根据newsId查找
      * @return
      */
 	@Override
@@ -23,6 +23,7 @@ public class WebMsgDaoImpl extends BaseDaoImpl{
 			switch(queryType) {
 				case 0: HQL = "from WebMsg"; break;
 				case 1: HQL = "from WebMsg where id = " + webMsg.getId(); break;
+				case 2: HQL = "from WebMsg where news_id =" + webMsg.getNews_id(); break;
 				default: break;
 			}
 			if (!HQL.isEmpty()) {

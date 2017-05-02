@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import me.cmnt.model.Member;
 
 @Repository("memberDao")
-@SuppressWarnings("unchecked")
 public class MemberDaoImpl extends BaseDaoImpl {
 
 	/**
@@ -29,6 +28,8 @@ public class MemberDaoImpl extends BaseDaoImpl {
 				case 4: HQL = "from Member where community_id = " + member.getCommunity_id() + " and member_type = " + member.getMember_type(); break;
 				case 5: HQL = "from Member where community_id = " + member.getCommunity_id() + " and member_status = " + member.getMember_status(); break;
 				case 6: HQL = "from Member where community_id = " + member.getCommunity_id() + " and user_id = " + member.getUser_id(); break;
+				case 7: HQL = "from Member where community_id = " + member.getCommunity_id() + " and user_id = " + member.getUser_id() + " and member_status = " + member.getMember_status(); break;
+				case 8: HQL = "from Member where user_id = " + member.getUser_id() + " and member_type = " + member.getMember_type(); break; 
 			}
 			if (!HQL.isEmpty()) {
 				return sessionFactory.getCurrentSession().createQuery(HQL).list();

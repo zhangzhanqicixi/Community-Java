@@ -26,7 +26,7 @@
 			<dl>
 				<dt>上传图片：</dt>
 				<dd>
-					<input type="file" name="file""/>
+					<input type="file" name="file" />
 				</dd>
 			</dl>
 		</div>

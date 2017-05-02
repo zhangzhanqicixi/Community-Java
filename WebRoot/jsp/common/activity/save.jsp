@@ -26,6 +26,12 @@
 						cols="100">${activity.activity_content}</textarea>
 				</dd>
 			</dl>
+			<dl>
+				<dt>开始时间：</dt>
+				<dd>
+					<input value="${activity.insert_time}" type="datetime-local" name="msg" maxlength="20" class="required" />
+				</dd>
+			</dl>
 		</div>
 		<div class="formBar">
 			<ul>

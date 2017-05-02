@@ -23,6 +23,8 @@ public class User {
 	private String user_id;
 	@Column(name = "user_tel", length = 100)
 	private String user_tel;
+	@Column(name = "user_img", length = 100)
+	private String user_img;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -80,7 +82,22 @@ public class User {
 	public void setUser_tel(String user_tel) {
 		this.user_tel = user_tel;
 	}
-	
-	
+
+	public String getUser_img() {
+		return user_img;
+	}
+
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
+	}
+
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"username\":\"" + username
+				+ "\",\"password\":\"" + password + "\",\"user_name\":\""
+				+ user_name + "\",\"user_id\":\"" + user_id
+				+ "\",\"user_tel\":\"" + user_tel + "\",\"user_img\":\""
+				+ user_img + "\"}";
+	}
 
 }

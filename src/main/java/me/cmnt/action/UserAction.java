@@ -31,7 +31,7 @@ import me.cmnt.service.BaseServiceI;
 	@Result(name = "stu_page", location = "/homepage/index.jsp", type="redirect"),
 	@Result(name = "cmnt_page", location = "/WEB-INF/cmnt_admin.jsp"), 
 	@Result(name = "admin_page", location = "/WEB-INF/admin.jsp"),
-	@Result(name = "logout", location= "/login.jsp"),
+	@Result(name = "logout", location= "/mLogin.jsp"),
 	@Result(name = "homepage_logout", location = "/homepage/index.jsp", type="redirect"),
 	@Result(name = "login", location="/login.jsp")
 	})
@@ -115,6 +115,7 @@ public class UserAction extends BaseAction {
 			// 登录成功 
 			user = list.get(0);
 			// 获得memeber对象
+			/*
 			Member member = new Member();
 			member.setUser_id(user.getId());
 			for (Object object : memberService.query(member, 2)) {
@@ -125,19 +126,13 @@ public class UserAction extends BaseAction {
 						member = (Member) object;
 					}
 				}
-			}
-			if (member != null && member.getId() != 0) {
-				session.put("member", member);
-				session.put("user", user);
-				int member_type = member.getMember_type();
-				// 类型判断
-				if (member_type == 1) {
-					Cookie cookie = new Cookie(USER_COOKIE, user.getUsername() + "," + user.getPassword());
-					cookie.setMaxAge(60 * 60 * 24 * 1); // 保存时间为1天
-					ServletActionContext.getResponse().addCookie(cookie);
-					return "stu_page";
-				}
-			}
+			}*/
+			session.put("user", user);
+			// 类型判断
+			Cookie cookie = new Cookie(USER_COOKIE, user.getUsername() + "," + user.getPassword());
+			cookie.setMaxAge(60 * 60 * 24 * 1); // 保存时间为1天
+			ServletActionContext.getResponse().addCookie(cookie);
+			return "stu_page";
 		}
 		return "login";
 	}
@@ -149,7 +144,6 @@ public class UserAction extends BaseAction {
 	public String homepage_logout() {
 		// 删除session
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		session.remove("member");
 		session.remove("user");
 		HttpServletResponse response = ServletActionContext.getResponse();
 		//清除登陆页面缓存  

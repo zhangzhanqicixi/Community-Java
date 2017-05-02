@@ -2,6 +2,9 @@ package me.cmnt.service;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
+
+
 public interface BaseServiceI {
 	
 	/**

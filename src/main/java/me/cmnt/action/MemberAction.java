@@ -27,7 +27,9 @@ import me.cmnt.service.BaseServiceI;
 	@Result(name = "user_list", location = "/jsp/common/member/member.jsp"),
 	@Result(name = "user_app_list", location = "/jsp/common/member/member_application.jsp"),
 	@Result(name = "success_application", location = "/jsp/main_page/success.jsp"),
-	@Result(name = "error_application", location = "/jsp/main_page/fail.jsp")
+	@Result(name = "error_application", location = "/jsp/main_page/fail.jsp"),
+	@Result(name = "readyConfirm", location = "/jsp/common/member/edit_member.jsp"),
+	@Result(name = "user_info", location = "/jsp/common/member/show_member.jsp"),
 })
 public class MemberAction extends BaseAction {
 	
@@ -101,8 +103,8 @@ public class MemberAction extends BaseAction {
 	public String selectMemberByCommunityId() {
 		ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
 		Map<String,Object> session = actionContext.getSession();	//获得Session容器
-		member = (Member) session.get("current_member");
-		member.setMember_status(2);
+		member = (Member) session.get("member");
+		member.setMember_status(1);
 		memberList = queryByEntType(5);
 		userList = new ArrayList<User>();
 		for (Member member_local : memberList) {
@@ -123,8 +125,8 @@ public class MemberAction extends BaseAction {
 	public String selectApplicationMember() {
 		ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
 		Map<String,Object> session = actionContext.getSession();	//获得Session容器
-		member = (Member) session.get("current_member");
-		member.setMember_status(1);
+		member = (Member) session.get("member");
+		member.setMember_status(0);
 		memberList = queryByEntType(5);
 		userList = new ArrayList<User>();
 		for (Member member_local : memberList) {
@@ -139,7 +141,55 @@ public class MemberAction extends BaseAction {
 	}
 	
 	/**
-	 * 确认修改
+	 * 获得成员详细信息
+	 * @return
+	 */
+	public String userInfo() {
+		ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
+		Map<String,Object> session = actionContext.getSession();	//获得Session容器
+		member = (Member) session.get("member");
+		User user = new User();
+		user.setId(Integer.valueOf(uid));
+		List list = userService.query(user, 1);
+		if (!list.isEmpty()) {
+			this.user = (User) list.get(0);
+			Member member = new Member();
+			member.setUser_id(Integer.valueOf(uid));
+			member.setCommunity_id(this.member.getCommunity_id());
+			List member_list = memberService.query(member, 6);
+			if (!member_list.isEmpty()) {
+				this.member = (Member) member_list.get(0);
+			}
+		}
+		return "user_info";
+	}
+	
+	/**
+	 * 准备核准
+	 * @return
+	 */
+	public String readyConfirm() {
+		ActionContext actionContext = ActionContext.getContext();	//获得Struts容器
+		Map<String,Object> session = actionContext.getSession();	//获得Session容器
+		member = (Member) session.get("member");
+		User user = new User();
+		user.setId(Integer.valueOf(uid));
+		List list = userService.query(user, 1);
+		if (!list.isEmpty()) {
+			this.user = (User) list.get(0);
+			Member member = new Member();
+			member.setUser_id(Integer.valueOf(uid));
+			member.setCommunity_id(this.member.getCommunity_id());
+			List member_list = memberService.query(member, 6);
+			if (!member_list.isEmpty()) {
+				this.member = (Member) member_list.get(0);
+			}
+		}
+		return "readyConfirm";
+	}
+	
+	/**
+	 * 确认加入
 	 * @return
 	 */
 	public String confirm() {
@@ -147,9 +197,9 @@ public class MemberAction extends BaseAction {
 		member.setUser_id(Integer.valueOf(uid));
 		member = queryByEntType(2).get(0);
 		if (member != null) {
-			member.setMember_status(2);
+			member.setMember_status(1);
 			memberService.update(member);
-			return ajaxForwardSuccess("状态已更改！");
+			return ajaxForwardSuccess("该成员已加入！");
 		}
 		return ajaxForwardError("修改失败，请重试");
 	}
