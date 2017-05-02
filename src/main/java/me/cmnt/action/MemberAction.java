@@ -194,9 +194,10 @@ public class MemberAction extends BaseAction {
 	 */
 	public String confirm() {
 		member = new Member();
-		member.setUser_id(Integer.valueOf(uid));
-		member = queryByEntType(2).get(0);
-		if (member != null) {
+		member.setId(Integer.valueOf(uid));
+		List list = memberService.query(member, 1);
+		if (!list.isEmpty()) {
+			member = (Member) list.get(0);
 			member.setMember_status(1);
 			memberService.update(member);
 			return ajaxForwardSuccess("该成员已加入！");

@@ -36,7 +36,7 @@
 		<nav>
 		<ul class="list-none" id="list-none">
 			<li id="nav_0" style='width:121px;' class='navdown'><a
-				href='index_1.jsp' class='nav'><span>网站首页</span></a></li>
+				href='index.jsp' class='nav'><span>网站首页</span></a></li>
 			<li class="line"></li>
 			<li id='nav_1' style='width:121px;'><a href='about.jsp'
 				class='hover-none nav'><span>网站简介</span></a></li>

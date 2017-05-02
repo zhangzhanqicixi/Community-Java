@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.cmnt.model.Activity;
 import me.cmnt.model.Community;
@@ -20,6 +21,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -36,7 +38,9 @@ import com.opensymphony.xwork2.ActionSupport;
 	@Result(name = "json_news", type = "json", params = {"includeProperties", "msgNews"}),
 	@Result(name = "json_acts", type = "json", params = {"includeProperties", "msgAct, msgActCmnt"}),
 	@Result(name = "json_act", type = "json", params = {"includeProperties", "msgAct, msgActCmnt"}),
-	@Result(name = "json_member", type = "json", params = {"includeProperties", "msgMember"})
+	@Result(name = "json_member", type = "json", params = {"includeProperties", "msgMember"}),
+	@Result(name = "json_user_info", type = "json", params = {"includeProperties", "msgUser, msgCmnt"}),
+	@Result(name = "json_about_info", type = "json", params = {"includeProperties", "msgWebInfo"})
 })
 public class AjaxAction extends BaseAction {
 	private String msgAct;
@@ -47,6 +51,7 @@ public class AjaxAction extends BaseAction {
 	private String msgUser;
 	private String msgMember;
 	private String webNews;
+	private String msgWebInfo;
 	private String newsComment;
 	private String newsCommentUser;
 	private String cmntSingle;
@@ -152,7 +157,63 @@ public class AjaxAction extends BaseAction {
 	public void setMsgMember(String msgMember) {
 		this.msgMember = msgMember;
 	}
+	public String getMsgWebInfo() {
+		return msgWebInfo;
+	}
+	public void setMsgWebInfo(String msgWebInfo) {
+		this.msgWebInfo = msgWebInfo;
+	}
 	
+	/**
+	 * 网站简介
+	 * @return
+	 */
+	public String getAboutInfo() {
+		WebInfo webInfo = new WebInfo();
+		List list = webInfoService.query(webInfo, 0);
+		webInfo = (WebInfo) list.get(0);
+		msgWebInfo = webInfo.toString();
+		return "json_about_info";
+	}
+	
+	/**
+	 * 用户信息
+	 * @return
+	 */
+	public String user_info() {
+		ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
+		Map<String, Object> session = actionContext.getSession(); // 获得Session容器
+		User user = (User) session.get("user");
+		msgUser = user.toString();
+		// 活动该用户的社团信息
+		Member member = new Member();
+		member.setUser_id(user.getId());
+		member.setMember_status(1);
+		member.setMember_type(1);
+		List list = memberService.query(member, 9);
+		List<Community> cmnt_list = new ArrayList<Community>();
+		if (!list.isEmpty()) {
+			for (Object object : list) {
+				Member member_1 = (Member) object;
+				if (member_1.getCommunity_id() != 0) {
+					Community community = new Community();
+					community.setId(member_1.getCommunity_id());
+					List list_c = communityService.query(community, 1);
+					if (list_c != null && !list_c.isEmpty()) {
+						community = (Community) list_c.get(0);
+						cmnt_list.add(community);
+					}
+				}
+			}
+		}
+		msgCmnt = cmnt_list.toString();
+		return "json_user_info";
+	}
+	
+	/**
+	 * 查找活动详情
+	 * @return
+	 */
 	public String getActivityDetails() {
 		Activity activity = new Activity();
 		Community community = new Community();

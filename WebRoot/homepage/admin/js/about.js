@@ -2,9 +2,22 @@
  * Created by zhangzhanqi on 2017/4/18.
  */
 $(document).ready(function () {
+	
+	$.ajax({
+        url: '../ajax!getAboutInfo.action',
+        type: 'GET',
+        data: '',
+        dataType: 'json',
+        success: function (data) {
+        	var webInfo = JSON.parse(data.msgWebInfo)
+        	$('#showtext').text('     ' + webInfo.introduction)
+        }
+    });
+	
+	
 	if (validateUser()) {
     	$('#nav_6').remove()
-    	$('#list-none').append("<li id='nav_7' style='width:120px'><a href='../login.jsp' class='hover-none nav'><span>个人信息</span></a><li class='line'></li>")
+    	$('#list-none').append("<li id='nav_7' style='width:120px'><a href='info.jsp' class='hover-none nav'><span>个人信息</span></a><li class='line'></li>")
     	$('#list-none').append("<li id='nav_8' style='width:120px; border-top-right-radius: 5px;'><a href='../user!homepage_logout.action' class='hover-none nav'><span>退出登录</span></a>")
     } else {
     	$('#nav_6').remove()

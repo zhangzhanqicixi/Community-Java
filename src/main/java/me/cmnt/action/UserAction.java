@@ -1,5 +1,7 @@
 package me.cmnt.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ListModel;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -31,9 +34,11 @@ import me.cmnt.service.BaseServiceI;
 	@Result(name = "stu_page", location = "/homepage/index.jsp", type="redirect"),
 	@Result(name = "cmnt_page", location = "/WEB-INF/cmnt_admin.jsp"), 
 	@Result(name = "admin_page", location = "/WEB-INF/admin.jsp"),
-	@Result(name = "logout", location= "/mLogin.jsp"),
+	@Result(name = "logout", location= "/mogin.jsp"),
 	@Result(name = "homepage_logout", location = "/homepage/index.jsp", type="redirect"),
-	@Result(name = "login", location="/login.jsp")
+	@Result(name = "login", location="/login.jsp"),
+	@Result(name = "saveImage", location = "/homepage/user_info.jsp", type="redirect")
+	
 	})
 public class UserAction extends BaseAction {
 
@@ -44,10 +49,14 @@ public class UserAction extends BaseAction {
 	private List<User> userList;
 	private User user;
 	private Member member;
-	private String uid;
+	private String uid; 
 	// 判断登录类型，1.学生/2.社长/3.管理员
 	private String flag;
 	private String loginFlag;
+	// 封装上传文件域的属性
+	private File file;
+	private String fileFileName;
+	private String fileContentType;
 	private final static String USER_COOKIE = "USER_COOKIE";
 	public List<User> getUserList() {
 		return userList;
@@ -85,6 +94,24 @@ public class UserAction extends BaseAction {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	public File getFile() {
+		return file;
+	}
+	public void setFile(File file) {
+		this.file = file;
+	}
+	public String getFileFileName() {
+		return fileFileName;
+	}
+	public void setFileFileName(String fileFileName) {
+		this.fileFileName = fileFileName;
+	}
+	public String getFileContentType() {
+		return fileContentType;
+	}
+	public void setFileContentType(String fileContentType) {
+		this.fileContentType = fileContentType;
+	}
 	
 	@Override
 	public List<User> queryByEntType(int entType) {
@@ -100,6 +127,25 @@ public class UserAction extends BaseAction {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public String saveImage() {
+		ActionContext actionContext = ActionContext.getContext(); // 获得Struts容器
+		Map<String, Object> session = actionContext.getSession(); // 获得Session容器
+		User user = (User) session.get("user");
+		if (file != null) {
+			String destString = ServletActionContext
+					 .getServletContext().getRealPath("/user_upload")
+					 + "/" + fileFileName;
+					 try {
+						FileUtils.copyFile(file, new File(destString));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			user.setUser_img("user_upload/" + fileFileName);
+			userService.update(user);
+		}
+		return "saveImage";
 	}
 	
 	/**

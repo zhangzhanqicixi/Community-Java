@@ -39,7 +39,7 @@
 				<li id='nav_5' style='width:121px;'><a href='index.jsp'
 					class='hover-none nav'><span>联系我们</span></a></li>
 				<li class="line"></li>
-				<li id='nav_6' style='width:120px;'><a href='index.jsp'
+				<li id='nav_6' style='width:120px;'><a href='../login.jsp'
 					class='hover-none nav'><span>学生登录</span></a></li>
 			</ul>
 		</nav>
